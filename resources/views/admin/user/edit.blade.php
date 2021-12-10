@@ -45,18 +45,18 @@
                         <input type="text" name="pay_password" autocomplete="off" placeholder="" class="layui-input" value="">
                     </div>
                 </div> -->
-                <div class="layui-form-item">
+                <!-- <div class="layui-form-item">
                     <label class="layui-form-label">是否是代理</label>
                     <div class="layui-input-block">
                         <input type="checkbox" name="is_agent" lay-skin="switch" @if($result->is_agent==1) checked @endif>
                     </div>
-                </div>
-                <div class="layui-form-item">
+                </div> -->
+                <!-- <div class="layui-form-item">
                     <label class="layui-form-label">代理比例</label>
                     <div class="layui-input-block">
                         <input type="text" name="agent_rate" autocomplete="off" placeholder="" class="layui-input" value="{{$result->agent_rate}}">
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="layui-tab-item">
                 <div class="layui-form-item">
