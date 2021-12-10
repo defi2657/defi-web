@@ -100,8 +100,7 @@
 
 @section('scripts')
     <script type="text/html" id="table-useradmin-webuser">
-        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="wallet_info">查看资金</a>
-        <!-- <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="order">查看订单</a> -->
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="copy_link">推广链接</a> 
     </script>
 
 
@@ -199,19 +198,7 @@
                         ,area: ['1000px', '600px']
                     });
             }
-            if (event == 'wallet_info') {
-                //查看资金
-                
-                layer.open({
-                        title: '查看资金'
-                        , type: 2
-                        , content: '{{url('/agent/user/users_wallet')}}?id=' + data.id
-                        // , maxmin: true
-                        ,area: ['800px', '600px']
-                    });
-                
-               
-            }
+           
 
             if (event == 'son') {
                 load(data.id);
