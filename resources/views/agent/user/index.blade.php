@@ -5,7 +5,7 @@
 @endsection
 
 @section('page-content')
-
+<script type="text/javascript" src="/layuiadmin/lib/extend/clipboard.min.js"></script>
 
     <div class="layui-fluid">
         <div class="layui-card">
@@ -100,7 +100,7 @@
 
 @section('scripts')
     <script type="text/html" id="table-useradmin-webuser">
-        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="copy_link">推广链接</a> 
+        <a class="layui-btn layui-btn-normal layui-btn-xs copy" lay-event="copy_link">推广链接</a> 
     </script>
 
 
@@ -151,11 +151,11 @@
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'id', width: 60, title: 'ID', sort: true}
                     , {field: 'account_number', title: '用户名', minWidth: 150}
-                    , {field: 'my_agent_level', title: '用户身份' , width : 120}
-                    , {field: 'card_id', title: '身份证号' , width : 180}
+                    // , {field: 'my_agent_level', title: '用户身份' , width : 120}
+                    // , {field: 'card_id', title: '身份证号' , width : 180}
                     , {field: 'parent_name', title: '上级代理商' , width : 120}
-                    , {field: 'phone', title: '手机号', minWidth: 150}
-                    , {field: 'email', title: '邮箱', minWidth: 150}
+                    // , {field: 'phone', title: '手机号', minWidth: 150}
+                    // , {field: 'email', title: '邮箱', minWidth: 150}
                     , {field: 'extension_code', title: '邀请码', minWidth: 150}
                     , {field: 'create_date', title: '加入时间', sort: true, width: 170}
                     , {title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser'}
@@ -182,21 +182,35 @@
             });
         }
 
+        function layer_msg(msg)
+        {
+            layer.msg(msg);
+        }
+        function copy(addre){
+				console.log(addre)
+				var content = addre;
+				var clipboard = new ClipboardJS('.copy', {
+					text: function () {
+						return content;
+					}
+				});
+				clipboard.on('success', function (e) {
+					layer_msg("复制成功")
+				});
 
+				clipboard.on('error', function (e) {
+					layer_msg("请重新复制")
+				});
+			}
         table.on('tool(san-user-manage)', function (obj) {
             var event = obj.event;
             var data = obj.data;
 
-            if (event == 'order') {
+            if (event == 'copy_link') {
                 //查看订单
-                
-                layer.open({
-                        title: '查看杠杆订单'
-                        , type: 2
-                        , content: '{{url('/agent/user/lever_order')}}?id=' + data.id
-                        // , maxmin: true
-                        ,area: ['1000px', '600px']
-                    });
+                //location.protocol + '//' + document.domain +'/receive?code=' + invite_code
+                var url=location.protocol + '//' + document.domain +'/receive?code=' + data.extension_code;
+                copy(url);
             }
            
 
