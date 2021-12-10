@@ -5,7 +5,13 @@
 @endsection
 
 @section('page-content')
+<button class="layui-btn layui-btn-primary" id="user_add">
+      
+        <span>添加用户</span>
+    </button>
     <div class="layui-inline layui-row">
+
+    
         <label class="layui-form-label">用户帐号</label>
         <div class="layui-input-inline">
             <input type="text" name="account" placeholder="用户手机号或邮箱" autocomplete="off" class="layui-input" value="">
@@ -20,6 +26,7 @@
         <i class="layui-icon layui-icon-user"></i>
         <span>推荐关系</span>
     </button>
+
     <table id="userlist" lay-filter="userlist"></table>
 @endsection
 
@@ -72,6 +79,18 @@
                     ,zIndex: parent.layer.zIndex
                 });
             });
+            $('#user_add').click(function () {
+                parent.layer.open({
+                    type: 2
+                    ,title: '添加用户'
+                    ,content: '/admin/account/add'
+                    ,area: ['600px', '800px']
+                    ,maxmin: true
+                    ,shade: 0.4
+                    ,zIndex: parent.layer.zIndex
+                });
+            });
+
             /*$('#add_user').click(function(){layer_show('添加会员', '/admin/user/add');});*/
 
             form.on('submit(mobile_search)',function(obj){

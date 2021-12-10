@@ -16,6 +16,11 @@ class UserController extends Controller
         return view("admin.user.index");
     }
 
+    public function add()
+    {
+        return view("admin.user.edit");
+    }
+
     //导出用户列表至excel
     public function csv()
     {

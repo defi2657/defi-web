@@ -490,17 +490,17 @@ class MemberController extends Controller
         } else {
 
             //添加代理商时  用户授权码
-            $authorization_code = $request->input('authorization_code', '');
+            // $authorization_code = $request->input('authorization_code', '');
 
-            if(!Cache::has('authorization_code_'.$user->id)){
-                return $this->error('用户授权码已失效,请重新生成');
-            }
-            $user_code=Cache::get('authorization_code_'.$user->id);
+            // if(!Cache::has('authorization_code_'.$user->id)){
+            //     return $this->error('用户授权码已失效,请重新生成');
+            // }
+            // $user_code=Cache::get('authorization_code_'.$user->id);
 
 
-            if(!$authorization_code || ($authorization_code != $user_code) ){
-                  return $this->error('用户授权码不正确');
-            }
+            // if(!$authorization_code || ($authorization_code != $user_code) ){
+            //       return $this->error('用户授权码不正确');
+            // }
             $agent = new Agent();
             $agent->reg_time = time();
         }
@@ -639,17 +639,17 @@ class MemberController extends Controller
         } else {
 
             //添加代理商时  用户授权码
-            $authorization_code = $request->input('authorization_code', '');
+            // $authorization_code = $request->input('authorization_code', '');
 
-            if(!Cache::has('authorization_code_'.$user->id)){
-                return $this->error('用户授权码已失效,请重新生成');
-            }
-            $user_code=Cache::get('authorization_code_'.$user->id);
+            // if(!Cache::has('authorization_code_'.$user->id)){
+            //     return $this->error('用户授权码已失效,请重新生成');
+            // }
+            // $user_code=Cache::get('authorization_code_'.$user->id);
 
 
-            if(!$authorization_code || ($authorization_code != $user_code) ){
-                  return $this->error('用户授权码不正确');
-            }
+            // if(!$authorization_code || ($authorization_code != $user_code) ){
+            //       return $this->error('用户授权码不正确');
+            // }
             $agent = new Agent();
             $agent->reg_time = time();
             $agent->parent_agent_id = $_self->id;  //上级代理商id，有别于user表中的parent_id。  这个id取的是agent产生的id,并不是users表中的id。特别要注意！

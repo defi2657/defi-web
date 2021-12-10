@@ -36,9 +36,7 @@ class UserController extends Controller
         $end = request()->input('end', '');
 
         $users = new Users();
-
-        $users = $users->leftjoin("user_real", "users.id", "=", "user_real.user_id");
-
+ 
         if ($id) {
             $users = $users->where('users.id', $id);
         }
@@ -60,7 +58,7 @@ class UserController extends Controller
         $agent_id = Agent::getAgentId();
         $users = $users->whereRaw("FIND_IN_SET($agent_id,users.agent_path)");
 
-        $list = $users->select("users.*", "user_real.card_id")->paginate($limit);
+        $list = $users->select("users.*")->paginate($limit);
 
         return $this->layuiData($list);
     }

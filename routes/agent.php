@@ -67,22 +67,37 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
     Route::post('agental_s', 'Agent\ReportController@agental_s');//阶段订单图表
 
 
-    Route::get('order/lever_index', 'Agent\OrderController@leverIndex');//杠杆订单页面
+    Route::prefix('account')->group(function () {
+        Route::get('account_index', 'Agent\AccountLogController@index');
+        Route::get('list', 'Agent\AccountLogController@lists'); 
+     });
 
-    Route::post('order/list', 'Agent\OrderController@order_list');//团队所有订单
+     Route::prefix('wallet')->group(function () {
+        Route::get('index', 'Agent\WalletController@index'); //钱包管理页面
+        Route::get('list', 'Agent\WalletController@lists'); //钱包列表搜索
+ 
+        Route::get('update_balance', 'Agent\WalletController@updateBalance'); //更新链上余额
+  
+        Route::get('collect', 'Agent\WalletController@collect'); //余额归拢
+    });
 
-    Route::get('order/info', 'Agent\OrderController@order_info');//订单详情
+    Route::group([], function () {
+        Route::get('cashb', 'Agent\CashbController@index')->middleware(['demo_limit']);
+        Route::get('cashb_list', 'Agent\CashbController@cashbList');
+        Route::get('cashb_show', 'Agent\CashbController@show')->middleware(['demo_limit']);//提币详情页面
+ 
+    });
 
-    //撮合订单
-    Route::get('order/transaction_index', 'Agent\OrderController@transactionIndex');
+    Route::group([],function(){
+        Route::get('/agent_bonus_task/index','Agent\AgentBonusTaskController@index');
+        Route::get('/agent_bonus_task/list','Agent\AgentBonusTaskController@lists');
+    });
 
-    Route::get('order/transaction_list', 'Agent\OrderController@transactionList');
-
-    Route::get('order/jie_index', 'Agent\OrderController@jieIndex');
-
-
-    Route::post('jie/list', 'Agent\OrderController@jie_list');//团队所有结算
-    Route::post('jie/info', 'Agent\OrderController@jie_info');//结算详情
+    Route::prefix('report')->group(function () {
+        Route::get('user', 'Agent\ReportController@user_index');
+        Route::get('user/list', 'Agent\ReportController@user_list');
+        Route::post('user/sync', 'Agent\ReportController@sync');        
+     });
 
     Route::post('get_order_account' , 'Agent\OrderController@get_order_account');
     Route::post('get_user_num' , 'Agent\UserController@get_user_num');

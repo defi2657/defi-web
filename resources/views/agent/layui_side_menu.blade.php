@@ -40,35 +40,24 @@
                     <cite>财务管理</cite>
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" kit-target data-options="{url:'/agent/account/account_index', icon:'&#xe658;', title:'财务流水',id:'9'}"><i class="layui-icon">&#xe658;</i><span> 财务流水</span></a></dd>
-                </dl>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" kit-target data-options="{url:'/agent/wallet/index', icon:'&#xe613;', title:' 钱包统计',id:'50'}"><i class="layui-icon">&#xe613;</i><span> 钱包明细</span></a></dd>
-                </dl>
-                <dl class="layui-nav-child">
-                    <dd>
-                        <a href="javascript:;" kit-target data-options="{url:'/agent/cashb',icon:'&#xe65e;',title:'提币列表',id:'17'}">
-                            <i class="layui-icon">&#xe65e;</i>
-                            <span> 提币列表</span>
-                        </a>
-                    </dd>
-                </dl>
-                <dl class="layui-nav-child">
-                    <dd>
-                        <a href="javascript:;" kit-target data-options="{url:'/agent/report/user',icon:'&#xe65e;',title:'团队报表',id:'17'}">
-                            <i class="layui-icon">&#xe65e;</i>
-                            <span>团队报表</span>
-                        </a>
-                    </dd>
-                </dl>
-                <dl class="layui-nav-child">
-                    <dd>
-                        <a href="javascript:;" kit-target data-options="{url:'/agent/agent_bonus_task/index',icon:'&#xe65e;',title:'收割列表',id:'18'}">
-                            <i class="layui-icon">&#xe65e;</i>
-                            <span>收割列表</span>
-                        </a>
-                    </dd>
-                </dl>
+                   
+                   <dd data-name="button">
+                       <a lay-href="/agent/account/account_index">财务流水</a>
+                   </dd>
+                   <dd data-name="button">
+                       <a lay-href="/agent/wallet/index">钱包统计</a>
+                   </dd>
+                   <dd data-name="button">
+                       <a lay-href="/agent/cashb">提币列表</a>
+                   </dd>
+                   <dd data-name="button">
+                       <a lay-href="/agent/report/user">团队报表</a>
+                   </dd>
+                   <dd data-name="button">
+                       <a lay-href="/agent/agent_bonus_task/index">收割列表</a>
+                   </dd>
+               </dl>
+         
             </li>
     
 

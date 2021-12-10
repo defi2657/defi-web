@@ -14,5 +14,10 @@ class UserDayReport extends Model
      * @var string
      */
     protected $table = 'user_day_report';
+
+    public function user()
+    {
+        return $this->belongsTo(Users::class, 'uid', 'id');
+    }
  
 }
