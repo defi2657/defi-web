@@ -32,7 +32,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="layui-inline">
+                    <!-- <div class="layui-inline">
                         <label class="layui-form-label">是否拉新</label>
                         <div class="layui-input-block">
                             <select name="is_addson">
@@ -41,7 +41,7 @@
                                 <option value="0">禁止拉新</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="layui-inline">
                         <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
                             <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>

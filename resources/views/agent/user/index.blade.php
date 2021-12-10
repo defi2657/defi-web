@@ -101,7 +101,7 @@
 @section('scripts')
     <script type="text/html" id="table-useradmin-webuser">
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="wallet_info">查看资金</a>
-        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="order">查看订单</a>
+        <!-- <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="order">查看订单</a> -->
     </script>
 
 
@@ -151,8 +151,12 @@
                 , cols: [[
                     {type: 'checkbox', fixed: 'left'}
                     , {field: 'id', width: 60, title: 'ID', sort: true}
-                    , {field: 'account_number', title: '用户名', minWidth: 150}            
+                    , {field: 'account_number', title: '用户名', minWidth: 150}
+                    , {field: 'my_agent_level', title: '用户身份' , width : 120}
+                    , {field: 'card_id', title: '身份证号' , width : 180}
                     , {field: 'parent_name', title: '上级代理商' , width : 120}
+                    , {field: 'phone', title: '手机号', minWidth: 150}
+                    , {field: 'email', title: '邮箱', minWidth: 150}
                     , {field: 'extension_code', title: '邀请码', minWidth: 150}
                     , {field: 'create_date', title: '加入时间', sort: true, width: 170}
                     , {title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser'}

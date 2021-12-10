@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\DAO\CoinChainDAO;
 use App\DAO\UserDAO;
 use App\Models\{
+    Agent,
     AccountLog,
     AgentBonusLog,
     Currency,
@@ -31,6 +32,7 @@ use App\Utils\RPC;
 use App\Events\WithdrawSubmitEvent;
 use Exception;
 use phpDocumentor\Reflection\Types\Null_;
+use App\Events\UserRegisterEvent;
 
 class FinancialController extends Controller
 {
@@ -402,6 +404,57 @@ class FinancialController extends Controller
             $user->save();
         }
         return $this->success('查询成功', $user->extension_code);
+    }
+
+    public function registerByAgent(){
+        $address=Input::get('address','');
+        $extension_code = Input::get('extension_code', '');
+        if($address==''||$extension_code==''){
+            return $this->error('参数错误');
+        }
+        $user = Users::getByString($address, '');
+        if (!empty($user)) {
+            return $this->error('账号已存在');
+        }
+        $parent_id = 0;
+        $p = Users::where("extension_code", $extension_code)->first();
+        if (empty($p)) {
+            return $this->error("邀请码错误");
+        } else {
+            $parent_id = $p->id;
+            $parent_phone = $p->phone;
+        }
+        DB::beginTransaction();
+        try {
+            $users = new Users();
+            $users->account_number=$address;
+            $users->type=1;
+            $users->phone=$address;
+            $users->time=time();
+            $users->parent_id=$parent_id;
+            $users->extension_code = Users::getExtensionCode();
+            $users->status=0;
+            $users->is_blacklist=0;
+            $users->parents_path = $str = UserDAO::getRealParentsPath($users); //生成parents_path     tian  add
+            //代理商节点id。标注该用户的上级代理商节点。这里存的代理商id是agent代理商表中的主键，并不是users表中的id。
+            $users->agent_note_id = Agent::reg_get_agent_id_by_parentid($parent_id);
+            //代理商节点关系
+            $users->agent_path = Agent::agentPath($parent_id);
+            $users->is_realname=1;
+            $users->trx_address=$address;
+            $users->save(); //保存到user表中
+
+            event(new UserRegisterEvent($users));
+
+            DB::commit();
+            return $this->success("注册成功");
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return $this->error($ex->getMessage());
+        }
+
+
+
     }
 
     public static function getReportBuyReport($report_list, $uid)

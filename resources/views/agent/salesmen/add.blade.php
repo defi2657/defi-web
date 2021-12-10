@@ -61,7 +61,7 @@
                         </div>
                     </div>
 
-                    <div class="layui-form-item">
+                    <!-- <div class="layui-form-item">
                         <label class="layui-form-label">头寸比例（%）</label>
                         <div class="layui-input-block">
                             <script type="text/html" template>
@@ -75,7 +75,7 @@
                                         class="layui-badge">{{isset($d['max_pro_loss']) ? $d['max_pro_loss'] : 100}}</span>。如20.85%，则输入20.85
                             </div>
                         </script>
-                    </div>
+                    </div> -->
 
                     <div class="layui-form-item">
                         <label class="layui-form-label">手续费比例（%）</label>
@@ -91,7 +91,7 @@
                             </div>
                         </script>
                     </div>
-                    @if(!isset($d['id']))
+                    <!-- @if(!isset($d['id']))
                     <div class="layui-form-item">
                         <label class="layui-form-label">授权码</label>
                         <div class="layui-input-block">
@@ -105,7 +105,7 @@
                             </div>
                         </script>
                     </div>
-                    @endif
+                    @endif -->
                     <div class="layui-form-item" lay-filter="sex">
                         <label class="layui-form-label">是否锁定</label>
                         <div class="layui-input-block">
@@ -121,7 +121,7 @@
                         </div>
                         <div class="layui-form-mid layui-word-aux">当锁定时，该用户不能登录代理商管理平台</div>
                     </div>
-                    <div class="layui-form-item" lay-filter="sex">
+                    <!-- <div class="layui-form-item" lay-filter="sex">
                         <label class="layui-form-label">允许拉新</label>
                         <div class="layui-input-block">
                             @if(isset($d['is_addson']))
@@ -135,7 +135,7 @@
                             @endif
                         </div>
                         <div class="layui-form-mid layui-word-aux">当禁止填加新代理商时，该用户不能添加自己的下级代理商</div>
-                    </div>
+                    </div> -->
                     @if(isset($d['id']))
                     <div class="layui-form-item">
                         <label class="layui-form-label">代理商密码</label>

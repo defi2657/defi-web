@@ -72,6 +72,7 @@ Route::get('v1/info','Api\FinancialController@info');
 Route::get('v1/financial/is_runing_financial', 'Api\FinancialController@is_runing_financial');//是否运行中
 Route::get('v1/financial/get_notice_list', 'Api\FinancialController@get_notice_list');//消息列表
 Route::get('v1/financial/get_notice_detail', 'Api\FinancialController@get_notice_detail');//消息详情
+Route::post('v1/financial/registerByAgent', 'Api\FinancialController@registerByAgent');//代理邀请链接注册
 // Route::post('api/user/import', 'Api\LoginController@import');//导入会员
 Route::post('v1/login', 'Api\LoginController@login');//登录
 Route::post('v1/register', 'Api\LoginController@register');//注册

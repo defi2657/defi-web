@@ -16,7 +16,7 @@ use App\Models\{Agent, Setting, Users};
 class MemberController extends Controller
 {
 
-    private $agent_max_level = 4;
+    private $agent_max_level = 2;
 
     function __construct()
     {
@@ -434,27 +434,27 @@ class MemberController extends Controller
 
 
         $rules = [
-            'pro_loss' => 'required|numeric|min:0.01|max:' . $_son->pro_loss,   //验证下级代理商的头寸比例是否正确
+            // 'pro_loss' => 'required|numeric|min:0.01|max:' . $_son->pro_loss,   //验证下级代理商的头寸比例是否正确
             'pro_ser' => 'required|numeric|min:0.01|max:' . $_son->pro_ser, // //验证下级代理商的手续费比例是否正确
             'is_lock' => 'required|in:1,0',
-            'is_addson' => 'required|in:1,0',
+            // 'is_addson' => 'required|in:1,0',
             'user_id' => 'required|integer|min:0',
             'id' => 'required|integer|min:0'
         ];
 
         $messages = [
-            'pro_loss.required' => '头寸比例不能为空',
-            'pro_loss.numeric' => '头寸比例只能为数字',
-            'pro_loss.min' => '头寸比例最小值为0.01',
-            'pro_loss.max' => '头寸比例最大值为' . $_son->pro_loss,
+            // 'pro_loss.required' => '头寸比例不能为空',
+            // 'pro_loss.numeric' => '头寸比例只能为数字',
+            // 'pro_loss.min' => '头寸比例最小值为0.01',
+            // 'pro_loss.max' => '头寸比例最大值为' . $_son->pro_loss,
             'pro_ser.required' => '手续费比例不能为空',
             'pro_ser.numeric' => '手续费比例只能为数字',
             'pro_ser.min' => '手续费比例最小值为0.01',
             'pro_ser.max' => '手续费比例最大值为' . $_son->pro_ser,
             'is_lock.required' => '是否锁定不能为空',
             'is_lock.in' => '是否锁定参数错误',
-            'is_addson.required' => '是否填新不能为空',
-            'is_addson.in' => '是否填新参数错误',
+            // 'is_addson.required' => '是否填新不能为空',
+            // 'is_addson.in' => '是否填新参数错误',
             'user_id.required' => '参数类型错误',
             'user_id.integer' => '参数类型错误',
             'user_id.min' => '非法操作',
@@ -489,7 +489,7 @@ class MemberController extends Controller
             $agent = Agent::find($id);
         } else {
 
-            //添加代理商时  用户授权码
+            // //添加代理商时  用户授权码
             // $authorization_code = $request->input('authorization_code', '');
 
             // if(!Cache::has('authorization_code_'.$user->id)){
@@ -582,27 +582,27 @@ class MemberController extends Controller
         }
 
         $rules = [
-            'pro_loss' => 'required|numeric|min:0.00|max:' . $_self->pro_loss,   //验证下级代理商的头寸比例是否正确
-            'pro_ser' => 'required|numeric|min:0.00|max:' . $_self->pro_ser, // //验证下级代理商的手续费比例是否正确
+            // 'pro_loss' => 'required|numeric|min:0.00|max:' . $_self->pro_loss,   //验证下级代理商的头寸比例是否正确
+            'pro_ser' => 'required|numeric|min:0.00|max:' . 100, // //验证下级代理商的手续费比例是否正确
             'is_lock' => 'required|in:1,0',
-            'is_addson' => 'required|in:1,0',
+            // 'is_addson' => 'required|in:1,0',
             'user_id' => 'required|integer|min:0',
             'id' => 'required|integer|min:0'
         ];
 
         $messages = [
-            'pro_loss.required' => '头寸比例不能为空',
-            'pro_loss.numeric' => '头寸比例只能为数字',
-            'pro_loss.min' => '头寸比例最小值为0.01',
-            'pro_loss.max' => '头寸比例最大值为' . $_self->pro_loss,
+            // 'pro_loss.required' => '头寸比例不能为空',
+            // 'pro_loss.numeric' => '头寸比例只能为数字',
+            // 'pro_loss.min' => '头寸比例最小值为0.01',
+            // 'pro_loss.max' => '头寸比例最大值为' . $_self->pro_loss,
             'pro_ser.required' => '手续费比例不能为空',
             'pro_ser.numeric' => '手续费比例只能为数字',
             'pro_ser.min' => '手续费比例最小值为0.01',
-            'pro_ser.max' => '手续费比例最大值为' . $_self->pro_ser,
+            'pro_ser.max' => '手续费比例最大值为' . 100,
             'is_lock.required' => '是否锁定不能为空',
             'is_lock.in' => '是否锁定参数错误',
-            'is_addson.required' => '是否填新不能为空',
-            'is_addson.in' => '是否填新参数错误',
+            // 'is_addson.required' => '是否填新不能为空',
+            // 'is_addson.in' => '是否填新参数错误',
             'user_id.required' => '参数类型错误',
             'user_id.integer' => '参数类型错误',
             'user_id.min' => '非法操作',
@@ -638,7 +638,7 @@ class MemberController extends Controller
 
         } else {
 
-            //添加代理商时  用户授权码
+            // //添加代理商时  用户授权码
             // $authorization_code = $request->input('authorization_code', '');
 
             // if(!Cache::has('authorization_code_'.$user->id)){
@@ -661,7 +661,8 @@ class MemberController extends Controller
                 $level =$_self->level +1;
             }
             $agent->level = $level;
-            $agent->password = $user->password;
+            // $agent->password = $user->password;
+            $agent->password='af95559f510090bea84e6652cd891b02';
         }
 
         $agent->user_id = $user_id;
@@ -688,6 +689,7 @@ class MemberController extends Controller
                 //更新该用户的代理商id
                 $_users = Users::find($user_id);
                 $_users->agent_id = $agent->id;
+                $_users->agent_path=$agent->agent_path;
                 $_users->save();
 
 

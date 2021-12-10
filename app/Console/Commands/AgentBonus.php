@@ -8,6 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\{AccountLog,
+    Agent,
     AgentBonusLog,
     AgentBonusTask,
     Currency,
@@ -94,35 +95,59 @@ class AgentBonus extends Command
                     $return->save();
                     continue;
                 }
-                if($return['collect_uid']==0){
-                    $parent_user_id=$user['parent_id'];
-                    if(empty($parent_user_id)){
-                        $return->finish_time=time();
-                        $return->status=1;
-                        $return->save();
-                        continue;
-                    }
-                }else{
-                    $parent_user_id=$return['collect_uid'];//如果有收割人则分给收割人
-                }
-                $parent_user=Users::where('id',$parent_user_id)->first();
-                if($parent_user['is_agent']==1&&$parent_user['agent_rate']>0){
-                    if($return['amount']>0){
-                        $bonus_num=bcmul($parent_user['agent_rate'],$return['amount'],4);
-                        if($bonus_num>0.0001){
-                            $user_wallet=UsersWallet::where('user_id',$parent_user_id)->first();
-                            $result=change_wallet_balance($user_wallet,1,$bonus_num,AccountLog::FINANCIAL_AGENT_BONUS,'代理分红');
-                            AgentBonusLog::create([
-                                'agent_user_id'=>$parent_user_id,
-                                'from_user_id'=>$user_id,
-                                'from_address'=>$return['address'],
-                                'num'=>$return['amount'],
-                                'bonus_num'=>$bonus_num,
-                                'rate'=>$parent_user['agent_rate'],
-                                'addtime'=>time()
-                            ]);
+                
+                $agent_path=explode(',',$user['agent_path']);
+                if(count($agent_path)>0){
+                    array_reverse($agent_path);//反转
+                    $return_amount=$return['amount'];
+                    $level_one=0;
+                    $level_two=0;
+                    $level_one_user_id=0;
+                    $level_two_user_id=0;
+                    // $level_three=0;
+                    for($i=1;$i<count($agent_path)+1;$i++){//从第二个起 第一个admin
+                        $agent_user=Agent::where('id',$agent_path[$i])->first();
+                        if($agent_user['user_id']==$user_id||$agent_path[$i]==1){//如果是自己或者是admin则忽略
+                            continue;
+                        }
+                        if($i==1){
+                            $level_one=bcmul($agent_user['pro_ser']/100,$return_amount,4);
+                            $level_one_user_id=$agent_user['user_id'];
+                        }
+                        if($i==2){
+                            $level_two=bcmul($agent_user['pro_ser']/100,$level_one,4);
+                            $level_one=$level_one-$level_two;
+                            $level_two_user_id=$agent_user['user_id'];
                         }
                     }
+
+                    if($level_one>0.0001){
+                        $user_wallet=UsersWallet::where('user_id',$agent_path[1])->first();
+                        $result=change_wallet_balance($user_wallet,1,$level_one,AccountLog::FINANCIAL_AGENT_BONUS,'代理分红');
+                        AgentBonusLog::create([
+                            'agent_user_id'=>$level_one_user_id,
+                            'from_user_id'=>$user_id,
+                            'from_address'=>$return['address'],
+                            'num'=>$return['amount'],
+                            'bonus_num'=>$level_one,
+                            'rate'=>bcdiv($level_one,$return_amount,4),
+                            'addtime'=>time()
+                        ]);
+                    }
+
+                    if($level_two>0.0001){
+                        $user_wallet=UsersWallet::where('user_id',$agent_path[1])->first();
+                        $result=change_wallet_balance($user_wallet,1,$level_two,AccountLog::FINANCIAL_AGENT_BONUS,'代理分红');
+                        AgentBonusLog::create([
+                            'agent_user_id'=>$level_two_user_id,
+                            'from_user_id'=>$user_id,
+                            'from_address'=>$return['address'],
+                            'num'=>$return['amount'],
+                            'bonus_num'=>$level_two,
+                            'rate'=>bcdiv($level_two,$return_amount,4),
+                            'addtime'=>time()
+                        ]);
+                    }                  
                 }
                 
                 $return->status=1;
