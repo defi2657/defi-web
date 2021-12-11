@@ -69,7 +69,7 @@
     </div>
  
 </div>
-<div class="layui-form-item">
+<!-- <div class="layui-form-item">
     <label class="layui-form-label">TRX授权地址</label>
     <div class="layui-input-inline">
         <input type="text" name="trx_address" autocomplete="off" style="width: 500px;" disabled class="layui-input"
@@ -92,7 +92,7 @@
             value="@if(isset($setting['trx_rev_address'])){{$setting['trx_rev_address']}}@endif">
     </div>
  
-</div>
+</div> -->
 <div class="layui-form-item">
     <label class="layui-form-label">ValidNode</label>
     <div class="layui-input-inline">
@@ -148,6 +148,23 @@
     <div class="layui-input-inline">
         <input type="text" name="google_code" autocomplete="off" class="layui-input"
             value="@if(isset($setting['google_code'])){{$setting['google_code']}}@endif">
+    </div>
+ 
+</div>
+
+<div class="layui-form-item">
+    <label class="layui-form-label">代理推广域名</label>
+    <div class="layui-input-inline">
+        <input type="text" name="proxy_pop_domain" autocomplete="off" class="layui-input"
+            value="@if(isset($setting['proxy_pop_domain'])){{$setting['proxy_pop_domain']}}@endif">
+    </div>
+ 
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">网站标题</label>
+    <div class="layui-input-inline">
+        <input type="text" name="site_title" autocomplete="off" class="layui-input"
+            value="@if(isset($setting['site_title'])){{$setting['site_title']}}@endif">
     </div>
  
 </div>
