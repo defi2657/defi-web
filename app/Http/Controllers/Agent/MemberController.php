@@ -20,7 +20,7 @@ class MemberController extends Controller
 
     function __construct()
     {
-        $this->agent_max_level = Setting::getValueByKey('agent_max_level',0);
+        // $this->agent_max_level = Setting::getValueByKey('agent_max_level',0);
     }
 
     /**

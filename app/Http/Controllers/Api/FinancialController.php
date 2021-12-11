@@ -242,7 +242,7 @@ class FinancialController extends Controller
             'available_profit' => $available_profit,
             'total_profit' => $total_profit,
             'wallet_balance' => $wallet_balance,
-            'is_agent' => $user['is_agent']
+            'is_agent' => $user['agent_id']>0?1:0
         ];
         return $this->success('操作成功', $data);
     }
@@ -634,10 +634,14 @@ class FinancialController extends Controller
     {
         $user_id = Users::getUserId();
         $user = Users::where('id', $user_id)->first();
-        if ($user['is_agent'] == 0) return $this->error('You are not an agent');
+        if ($user['agent_id'] == 0) return $this->error('You are not an agent');
         // $user_list = Users::where('parent_id', $user_id)->where('is_agent', 0)->get();
-        $all_users = Users::get();
-        $user_list = UserDAO::GetAllChildren($all_users, $user['id']);
+        if($user['agent_path']==''){
+            return $this->error('代理错误');
+        }
+        $user_list=Users::where('agent_path','like', '%' . $user['agent_path'] . '%')->get();
+        // $all_users = Users::get();
+        // $user_list = UserDAO::GetAllChildren($all_users, $user['id']);
 
         $new_list = [];
         foreach ($user_list as $item) {
