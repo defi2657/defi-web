@@ -1030,7 +1030,7 @@ class MemberController extends Controller
         $extension_code=$user->extension_code;
         try {
             $res= CoinChainDAO::create_account($extension_code,$currency);
-            return $this->success("注册成功");
+            return $this->success("注册成功,".$res['address']);
         } catch (\Exception $ex) {
             return $this->error($ex->getMessage());
         }

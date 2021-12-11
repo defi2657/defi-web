@@ -46,6 +46,7 @@
                 ,index = parent.layer.getFrameIndex(window.name);
             //监听提交
             form.on('submit(demo1)', function(data){
+                var loading = layer.load(1, {time: 30 * 1000});
                 var data = data.field;
                 $.ajax({
                     url:'{{url('agent/user/add_save')}}'
@@ -53,13 +54,16 @@
                     ,dataType:'json'
                     ,data : data
                     ,success:function(res){
-                        debugger;
+     
                         if(res.code==1){
                             layer.msg(res.msg);
                         }else{
+                            layer.msg(res.msg);
                             // parent.layer.close(index);
-                            parent.window.location.reload();
+                            // parent.window.location.reload();
                         }
+
+                        layer.close(loading);
                     }
                 });
                 return false;

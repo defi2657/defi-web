@@ -266,7 +266,7 @@
 
         //导出表格
         $('.dao').click(function () {
-            layer.show('添加代理商', '/agent/user/add',[]);
+            layer.show('添加用户', '/agent/user/add',[]);
 
         })
 
