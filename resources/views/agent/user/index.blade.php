@@ -71,7 +71,7 @@
                                 <p><cite style="color:#fff" id="_daili">0</cite></p>
                             </a>
                         </li>
-                        <li class="layui-col-xs3">
+                        <!-- <li class="layui-col-xs3">
                             <a href="javascript:;" onclick="layer.tips('代理商用户数', this, {tips: 3});" class="layadmin-backlog-body" style="color: #fff;background-color: #01AAED;">
                                 <h3>总入金</h3>
                                 <p><cite style="color:#fff" id="_ru">0</cite></p>
@@ -82,7 +82,7 @@
                                 <h3>总出金</h3>
                                 <p><cite style="color:#fff" id="_chu">0</cite></p>
                             </a>
-                        </li>
+                        </li> -->
                         
                     </ul>
                 </div>

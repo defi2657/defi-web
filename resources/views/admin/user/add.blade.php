@@ -6,30 +6,17 @@
 
 @section('page-content')
     <form class="layui-form" action="">
-        <div class="layui-form-item">
-            <label class="layui-form-label">手机号</label>
+    
+    <div class="layui-form-item">
+            <label class="layui-form-label">关联地址</label>
             <div class="layui-input-block">
-                <input type="text" name="phone" autocomplete="off" placeholder="" class="layui-input" value="" >
+                <input type="text" name="address" autocomplete="off" placeholder="" class="layui-input" value="">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">邮箱</label>
+            <label class="layui-form-label">邀请码</label>
             <div class="layui-input-block">
-                <input type="text" name="email" autocomplete="off" placeholder="" class="layui-input" value="" >
-            </div>
-        </div>
-       
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
-            <div class="layui-input-block">
-                <input type="text" name="password" autocomplete="off" placeholder="" class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">推荐人手机号或邮箱</label>
-            <div class="layui-input-block">
-                <input type="text" name="parent" autocomplete="off" placeholder="" class="layui-input" value="">
+                <input type="text" name="extension_code" autocomplete="off" placeholder="" class="layui-input" value="">
             </div>
         </div>
 
@@ -56,7 +43,7 @@
             form.on('submit(demo1)', function(data){
                 var data = data.field;
                 $.ajax({
-                    url:'{{url('admin/user/add')}}'
+                    url:'{{url('admin/user/doadd')}}'
                     ,type:'post'
                     ,dataType:'json'
                     ,data : data
@@ -64,7 +51,7 @@
                         if(res.type=='error'){
                             layer.msg(res.message);
                         }else{
-                            parent.layer.close(index);
+                            // parent.layer.close(index);
                             parent.window.location.reload();
                         }
                     }

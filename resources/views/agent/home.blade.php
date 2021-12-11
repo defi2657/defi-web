@@ -26,7 +26,7 @@
         <div class="layui-col-sm6 layui-col-md4">
           <div class="layui-card">
             <div class="layui-card-header">
-              伞下会员总数
+              会员总数
               <span class="layui-badge layui-bg-green layuiadmin-badge">总计</span>
             </div>
             <div class="layui-card-body layuiadmin-card-list">
@@ -36,24 +36,7 @@
           </div>
         </div>
  
-    <div class="layui-col-sm12">
-      <div class="layui-card">
-        <div class="layui-card-header">
-          日订单量
-        </div>
-        <div class="layui-card-body">
-          <div class="layui-row">
-            <div class="layui-col-sm12">
-              <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-pagetwo">
-                <div carousel-item id="LAY-index-pagetwo">
-                  <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+ 
 
 
 

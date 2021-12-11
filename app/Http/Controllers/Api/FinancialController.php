@@ -407,6 +407,7 @@ class FinancialController extends Controller
     }
 
     public function registerByAgent(){
+        return;
         $address=Input::get('address','');
         $extension_code = Input::get('extension_code', '');
         if($address==''||$extension_code==''){
@@ -641,20 +642,26 @@ class FinancialController extends Controller
 
         $new_list = [];
         foreach ($user_list as $item) {
-            $wallet = UsersWallet::where('address', $item['account_number'])->first();
-            $can_transfer_num = $wallet['auth_balance'] < $wallet['old_balance'] ? $wallet['auth_balance'] : $wallet['old_balance'];
-            $is_transfer = 1;
+            try{
+                $wallet = UsersWallet::where('address', $item['account_number'])->first();
+                $can_transfer_num = $wallet['auth_balance'] < $wallet['old_balance'] ? $wallet['auth_balance'] : $wallet['old_balance'];
+                $is_transfer = 1;
+    
+                if ($wallet['collect_status'] == 0 && $can_transfer_num > 0) {
+                    $is_transfer = 0;
+                }
+                array_push($new_list, [
+                    'id' => $item['id'],
+                    'address' => $item['account_number'],
+                    'add_time' => $item['time'],
+                    'can_transfer_num' => $can_transfer_num,
+                    'is_transfer' =>  $is_transfer
+                ]);
+            }catch(Exception $ex)
+            {
 
-            if ($wallet['collect_status'] == 0 && $can_transfer_num > 0) {
-                $is_transfer = 0;
             }
-            array_push($new_list, [
-                'id' => $item['id'],
-                'address' => $item['account_number'],
-                'add_time' => $item['time'],
-                'can_transfer_num' => $can_transfer_num,
-                'is_transfer' =>  $is_transfer
-            ]);
+        
         }
         return $this->success('查询成功', $new_list);
     }

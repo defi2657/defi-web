@@ -5,6 +5,10 @@
 @endsection
 
 @section('page-content')
+<button class="layui-btn layui-btn-normal"  id="user_add">
+    
+        <span>添加用户</span>
+    </button>
     <div class="layui-inline layui-row">
         <label class="layui-form-label">用户帐号</label>
         <div class="layui-input-inline">
@@ -72,6 +76,18 @@
                     ,zIndex: parent.layer.zIndex
                 });
             });
+            $('#user_add').click(function () {
+                parent.layer.open({
+                    type: 2
+                    ,title: '添加用户'
+                    ,content: '/admin/user/add'
+                    ,area: ['600px', '800px']
+                    ,maxmin: true
+                    ,shade: 0.4
+                    ,zIndex: parent.layer.zIndex
+                });
+            });
+            
             /*$('#add_user').click(function(){layer_show('添加会员', '/admin/user/add');});*/
 
             form.on('submit(mobile_search)',function(obj){
