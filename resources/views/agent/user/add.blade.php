@@ -58,7 +58,7 @@
                         if(res.code==1){
                             layer.msg(res.msg);
                         }else{
-                            layer.msg(res.msg);
+                            layer.alert(res.msg);
                             // parent.layer.close(index);
                             // parent.window.location.reload();
                         }
