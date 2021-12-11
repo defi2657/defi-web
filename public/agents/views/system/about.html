@@ -1,5 +1,5 @@
 
-<div class="layui-card-header">我的邀请二维码</div>
+<div class="layui-card-header"></div>
 <div class="layui-card-body layui-text layadmin-about">
     <div class="layui-card-body">
         <div id="code" class="flex alcenter jscenter"></div>
@@ -59,11 +59,11 @@
                 qr.clear();
 
                 if (result.data.is_admin == 1){
-                    qr.makeCode(  location.protocol + '//' + document.domain +'/mobile/register.html');
-                    $("#url").html( location.protocol + '//' + document.domain +'/mobile/register.html');
+                    qr.makeCode(  location.protocol + '//' + document.domain +'/receive');
+                    $("#url").html( location.protocol + '//' + document.domain +'/receive');
                 }else{
-                    qr.makeCode(  location.protocol + '//' + document.domain +'/mobile/register.html?code=' + invite_code);
-                    $("#url").html( location.protocol + '//' + document.domain +'/mobile/register.html?code=' + invite_code);
+                    qr.makeCode(  location.protocol + '//' + document.domain +'/receive?code=' + invite_code);
+                    $("#url").html( location.protocol + '//' + document.domain +'/receive?code=' + invite_code);
                 }
 
             }
