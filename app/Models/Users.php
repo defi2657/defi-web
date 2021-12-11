@@ -109,10 +109,10 @@ class Users extends Model
         return $this->belongsTo(Agent::class, 'agent_note_id', 'id');
     }
 
-    public function getAgentPathAttribute()
-    {
-        return $this->belongAgent()->value('agent_path') ?? '';
-    }
+    // public function getAgentPathAttribute()
+    // {
+    //     return $this->belongAgent()->value('agent_path') ?? '';
+    // }
 
     public function getUidAttribute()
     {
