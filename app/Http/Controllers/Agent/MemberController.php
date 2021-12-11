@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\DAO\CoinChainDAO;
+use App\DAO\UserDAO;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use App\Models\{Agent, Setting, Users};
+use App\Models\{Agent, Setting, Users,Currency};
 
 /**
  * 该类处理所有的代理商添加修改等操作
@@ -1010,5 +1012,27 @@ class MemberController extends Controller
     {
         $agents = Agent::getAllChildAgent(Agent::getAgentId());
         return $this->ajaxReturn($agents);
+    }
+
+    public function addMember(){
+        $currencies = Currency::all();
+        return view("agent.user.add",['currencies'=>$currencies]);
+    }
+
+    public function addSave(Request $request){
+        $_self = Agent::getAgent();
+        $user_id= $_self->user_id;
+        $user=Users::where('id',$user_id)->first();
+        $currency= $request->input('currency', '');
+        if($currency=='-1'){
+            return $this->error('请选择币种');
+        }
+        $extension_code=$user->extension_code;
+        try {
+            $res= CoinChainDAO::create_account($extension_code,$currency);
+            return $this->success("注册成功");
+        } catch (\Exception $ex) {
+            return $this->error($ex->getMessage());
+        }
     }
 }

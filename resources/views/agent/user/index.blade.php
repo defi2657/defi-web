@@ -36,7 +36,7 @@
                                    class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-inline">
+                    <!-- <div class="layui-inline">
                         <label class="layui-form-label">币种</label>
                         <div class="layui-input-block" style="width:130px;">
                             <select name="currency_id" >
@@ -46,17 +46,22 @@
                                 @endforeach
                             </select>
                         </div>
-                   </div>
+                   </div> -->
                     <div class="layui-inline">
                         <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="san-user-search">
                             <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                         </button>
+                        <!-- <button class="layui-btn layui-btn-normal dao" lay-event="add_user">添加用户</button> -->
                         <!-- <button class="layui-btn layuiadmin-btn-useradmin"  onclick="javascript:window.location.href='/order/users_excel'">导出Excel</button> -->
-                        <button class="layui-btn layui-btn-normal dao" lay-event="excel">导出表格</button>
+                        <!-- <button class="layui-btn layui-btn-normal dao" lay-event="excel">导出表格</button> -->
                     </div>
                 </div>
             </div>
             <div class="layui-card-body">
+                <div style="padding-bottom: 10px;">
+                    <!--<button class="layui-btn layuiadmin-btn-useradmin" data-type="batchdel">删除</button>-->
+                    <button class="layui-btn layuiadmin-btn-useradmin dao" data-type="add_user">添加用户</button>
+                </div>
                 <div class="layui-carousel layadmin-backlog" style="background-color: #fff">
                     <ul class="layui-row layui-col-space10 layui-this">
                         <li class="layui-col-xs3">
@@ -261,13 +266,7 @@
 
         //导出表格
         $('.dao').click(function () {
-            var id = $('input[name="id"]').val();
-            var account_number = $('input[name="account_number"]').val();
-            var start = $('input[name="start"]').val();
-            var end = $('input[name="end"]').val();
-
-            var url='/agent/users_excel?id='+id+'&account_number='+account_number+'&start='+start+'&end='+end;
-            window.open(url);
+            layer.show('添加代理商', '/agent/user/add',[]);
 
         })
 

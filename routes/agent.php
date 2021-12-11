@@ -49,6 +49,8 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
 
     Route::any('logout', 'Agent\MemberController@logout');//退出登录
     Route::any('menu', 'Agent\MemberController@getMenu');//获取指定身份的菜单
+    Route::any('user/add','Agent\MemberController@addMember');
+    Route::any('user/add_save','Agent\MemberController@addSave');
 
     Route::post('jie', 'Agent\ReportController@jie');//阶段订单图表
 
@@ -105,6 +107,7 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
 
    
     Route::any('user/lists', 'Agent\UserController@lists');//用户列表
+
     Route::any('lever_transaction/lists', 'Agent\LeverTransactionController@lists');//用户的订单
     Route::any('account/money_log', 'Agent\AccountController@moneyLog');//结算
     Route::any('agent/info', 'Agent\AgentController@info');//代理商信息
