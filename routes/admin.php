@@ -166,7 +166,7 @@ Route::namespace('Admin')->prefix('admin')->middleware(['admin_auth'])->group(fu
         Route::get('edit', 'UserController@edit');
         Route::post('edit', 'UserController@doedit');
         Route::get('add', 'UserController@add');
-        Route::post('add', 'UserController@doadd');
+        Route::post('doadd', 'UserController@doadd');
 
         Route::get('address', 'UserController@address');//提币地址信息
         Route::post('address_edit', 'UserController@addressEdit');//修改地址信息

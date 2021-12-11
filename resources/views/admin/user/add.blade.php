@@ -6,13 +6,18 @@
 
 @section('page-content')
     <form class="layui-form" action="">
-    
     <div class="layui-form-item">
-            <label class="layui-form-label">关联地址</label>
-            <div class="layui-input-block">
-                <input type="text" name="address" autocomplete="off" placeholder="" class="layui-input" value="">
+            <label class="layui-form-label">币种</label>
+            <div class="layui-input-inline" style="width: 120px;">
+                <select name="currency">
+                    <option value="-1">全部</option>
+                    @foreach ($currencies as $key => $value)
+                    <option value="{{$value->id}}">{{strtoupper($value->name)}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
+ 
         <div class="layui-form-item">
             <label class="layui-form-label">邀请码</label>
             <div class="layui-input-block">
