@@ -10,19 +10,24 @@
 namespace App\Http\Controllers\Agent;
 
 use Illuminate\Http\Request;
-use App\Models\{AccountLog, Agent, Currency, Users, UsersWalletOut};
+use App\Models\{AccountLog, Agent, Currency, Setting, Users, UsersWalletOut};
 
 class UserController extends Controller
 {
 
     //用户管理
     public function index()
-    {
+    { 
+        $settingList = Setting::all()->toArray();
+        $setting = [];
+        foreach ($settingList as $key => $value) {
+            $setting[$value['key']] = $value['value'];
+        }
         //某代理商下用户时
         $parent_id = request()->get('parent_id', 0);
         //法币
         $legal_currencies = Currency::where('is_legal', 1)->get();
-        return view("agent.user.index", ['parent_id' => $parent_id, 'legal_currencies' => $legal_currencies]);
+        return view("agent.user.index", ['parent_id' => $parent_id, 'legal_currencies' => $legal_currencies,'setting'=>$setting]);
     }
 
     //用户列表
@@ -143,7 +148,9 @@ class UserController extends Controller
 
         $use = Users::getById($_self->user_id);
 
-        return $this->ajaxReturn(['invite_code' => $use->extension_code, 'is_admin' => $_self->is_admin]);
+        $code=Setting::getValueByKey('proxy_pop_domain');
+     
+        return $this->ajaxReturn(['invite_code' => $use->extension_code, 'is_admin' => $_self->is_admin,'invite_site'=>$code]);
     }
 
     //代理商管理

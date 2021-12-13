@@ -214,7 +214,8 @@
             if (event == 'copy_link') {
                 //查看订单
                 //location.protocol + '//' + document.domain +'/receive?code=' + invite_code
-                var url=location.protocol + '//' + document.domain +'/receive?code=' + data.extension_code;
+                var domain="@if(isset($setting['proxy_pop_domain'])){{$setting['proxy_pop_domain']}}@endif";
+                var url=  domain +'/receive?code=' + data.extension_code;
                 copy(url);
             }
            
