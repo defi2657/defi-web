@@ -1,10 +1,15 @@
+ 
+@php
+@$setting=['site_title'=> \App\Models\Setting::getValueByKey('site_title')] ;
+@endphp
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>@if(isset($setting['site_title'])){{$setting['site_title']}}@endif</title>
+    <title>   @if(isset($setting['site_title'])){{$setting['site_title']}}@endif</title>
     <link rel="stylesheet" href="{{URL("admin/plugins/layui/css/layui.css")}}" media="all" />
     <link rel="stylesheet" href="{{URL("admin/plugins/font-awesome/css/font-awesome.min.css")}}" media="all" />
     <link rel="stylesheet" href="{{URL("admin/src/css/app.css")}}" media="all" />
