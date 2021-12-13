@@ -5,10 +5,10 @@
 @endsection
 
 @section('page-content')
-<button class="layui-btn layui-btn-normal"  id="user_add">
+<!-- <button class="layui-btn layui-btn-normal"  id="user_add">
     
         <span>添加用户</span>
-    </button>
+    </button> -->
     <div class="layui-inline layui-row">
         <label class="layui-form-label">用户帐号</label>
         <div class="layui-input-inline">
