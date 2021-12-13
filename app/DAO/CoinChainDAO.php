@@ -29,8 +29,8 @@ class CoinChainDAO
 
     public static function create_account($extension_code,$currency)
     {
-        $code=Users::getExtensionCode();
-        $address_url = 'http://127.0.0.1:5566/user/create_account?extension_code='.$extension_code.'&newExtension_code='.$code.'&currency=' .$currency ;
+ 
+        $address_url = 'http://127.0.0.1:5566/user/create_account?extension_code='.$extension_code.'&currency=' .$currency ;
         $res = RPC::apihttp($address_url,null,null,30);
         $res = @json_decode($res, true);
         if($res['code']==500)
