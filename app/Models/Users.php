@@ -150,24 +150,24 @@ class Users extends Model
 
     public function getParentNameAttribute()
     {
-        $value = $this->attributes['agent_note_id'] ?? 0;
-        if ($value) {
-            $p = Agent::where('id', $value)->first();
-            return isset($p->username) ? $p->username : '-/-';
+ 
+
+        if( $this->attributes['parent_id']>0)
+        {
+            $p=Users::where('id', $this->attributes['parent_id'] )->first();
+            return $p->account_number;
         }
         return '-/-';
     }
 
     public function getParentAccountAttribute(){
-        $value=$this->attributes['agent_note_id']??0;
-        if($value!=0){
-            $agent=Agent::where('id',$value)->first();
-            if($agent){
-                $p=Users::where('id',$agent['user_id'])->first();
-                return $p->account_number;
-            }
-           
+ 
+        if( $this->attributes['parent_id']>0)
+        {
+            $p=Users::where('id', $this->attributes['parent_id'] )->first();
+            return $p->account_number;
         }
+
         return '-/-';
     }
 
