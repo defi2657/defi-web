@@ -162,7 +162,7 @@
                     // , {field: 'phone', title: '手机号', minWidth: 150}
                     // , {field: 'email', title: '邮箱', minWidth: 150}
                     , {field: 'extension_code', title: '邀请码', minWidth: 150}
-                    , {field: 'create_date', title: '加入时间', sort: true, width: 170}
+                    , {field: 'time', title: '加入时间', sort: true, width: 170}
                     , {title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser'}
                 ]]
                 , page: true
