@@ -49,11 +49,11 @@
                 qr.clear();
                 var url=result.data.invite_site;
                 if (result.data.is_admin == 1){
-                    qr.makeCode(  url+'/receive');
-                    $("#url").html( url +'/receive');
+                    qr.makeCode(  url+'/');
+                    $("#url").html( url +'/');
                 }else{
-                    qr.makeCode(  url +'/receive?code=' + invite_code);
-                    $("#url").html( url+'/receive?code=' + invite_code);
+                    qr.makeCode(  url +'/?code=' + invite_code);
+                    $("#url").html( url+'/?code=' + invite_code);
                 }
 
             }

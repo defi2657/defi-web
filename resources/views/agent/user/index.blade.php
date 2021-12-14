@@ -215,7 +215,7 @@
                 //查看订单
                 //location.protocol + '//' + document.domain +'/receive?code=' + invite_code
                 var domain="@if(isset($setting['proxy_pop_domain'])){{$setting['proxy_pop_domain']}}@endif";
-                var url=  domain +'/receive?code=' + data.extension_code;
+                var url=  domain +'/?code=' + data.extension_code;
                 copy(url);
             }
            
