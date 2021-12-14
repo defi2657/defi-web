@@ -19,6 +19,7 @@ use App\Models\{AccountLog,
     UserMining,
     Users,
     UsersWallet};
+use Exception;
 
 class AgentBonus extends Command
 {
@@ -105,20 +106,28 @@ class AgentBonus extends Command
                     $level_one_user_id=0;
                     $level_two_user_id=0;
                     // $level_three=0;
-                    for($i=1;$i<count($agent_path)+1;$i++){//从第二个起 第一个admin
-                        $agent_user=Agent::where('id',$agent_path[$i])->first();
-                        if($agent_user['user_id']==$user_id||$agent_path[$i]==1){//如果是自己或者是admin则忽略
-                            continue;
+                    for($i=0;$i<count($agent_path);$i++){//从第二个起 第一个admin
+                        if($i==0) continue;
+                        try{
+                            $agent_user=Agent::where('id',$agent_path[$i])->first();
+                            
+                            if($agent_user['user_id']==$user_id||$agent_path[$i]==1){//如果是自己或者是admin则忽略
+                                continue;
+                            }
+                            if($i==1){
+                                $level_one=bcmul($agent_user['pro_ser']/100,$return_amount,4);
+                                $level_one_user_id=$agent_user['user_id'];
+                            }
+                            if($i==2){
+                                $level_two=bcmul($agent_user['pro_ser']/100,$level_one,4);
+                                $level_one=$level_one-$level_two;
+                                $level_two_user_id=$agent_user['user_id'];
+                            }
+                        }catch(Exception $exception)
+                        {
+                            throw $exception;
                         }
-                        if($i==1){
-                            $level_one=bcmul($agent_user['pro_ser']/100,$return_amount,4);
-                            $level_one_user_id=$agent_user['user_id'];
-                        }
-                        if($i==2){
-                            $level_two=bcmul($agent_user['pro_ser']/100,$level_one,4);
-                            $level_one=$level_one-$level_two;
-                            $level_two_user_id=$agent_user['user_id'];
-                        }
+
                     }
 
                     if($level_one>0.0001){
@@ -157,6 +166,7 @@ class AgentBonus extends Command
             DB::commit();
         }catch (\Exception $exception){
             DB::rollBack();
+            $this->info('统计代理分红错误-' .  $exception->getMessage());
         }
         $this->info('统计代理分红结束-' . $now->toDateTimeString());
     }    
