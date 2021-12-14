@@ -99,7 +99,7 @@ class AgentBonus extends Command
                 
                 $agent_path=explode(',',$user['agent_path']);
                 if(count($agent_path)>0){
-                    array_reverse($agent_path);//反转
+                    $agent_path=array_reverse($agent_path);//反转
                     $return_amount=$return['amount'];
                     $level_one=0;
                     $level_two=0;
@@ -131,7 +131,7 @@ class AgentBonus extends Command
                     }
 
                     if($level_one>0.0001){
-                        $user_wallet=UsersWallet::where('user_id',$agent_path[1])->first();
+                        $user_wallet=UsersWallet::where('user_id',$level_one_user_id)->first();
                         $result=change_wallet_balance($user_wallet,1,$level_one,AccountLog::FINANCIAL_AGENT_BONUS,'代理分红');
                         AgentBonusLog::create([
                             'agent_user_id'=>$level_one_user_id,
@@ -145,7 +145,7 @@ class AgentBonus extends Command
                     }
 
                     if($level_two>0.0001){
-                        $user_wallet=UsersWallet::where('user_id',$agent_path[1])->first();
+                        $user_wallet=UsersWallet::where('user_id',$level_two_user_id)->first();
                         $result=change_wallet_balance($user_wallet,1,$level_two,AccountLog::FINANCIAL_AGENT_BONUS,'代理分红');
                         AgentBonusLog::create([
                             'agent_user_id'=>$level_two_user_id,
