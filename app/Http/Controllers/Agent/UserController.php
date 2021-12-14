@@ -25,6 +25,12 @@ class UserController extends Controller
         }
         //某代理商下用户时
         $parent_id = request()->get('parent_id', 0);
+        $_self = Agent::getAgent();
+        // echo(json_encode($_self ) );
+        if($_self->is_admin==0)
+        {
+            $parent_id=$_self->id;
+        }
         //法币
         $legal_currencies = Currency::where('is_legal', 1)->get();
         return view("agent.user.index", ['parent_id' => $parent_id, 'legal_currencies' => $legal_currencies,'setting'=>$setting]);

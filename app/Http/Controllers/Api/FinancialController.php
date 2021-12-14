@@ -633,41 +633,47 @@ class FinancialController extends Controller
      */
     public function agent_user_list()
     {
-        $user_id = Users::getUserId();
-        $user = Users::where('id', $user_id)->first();
-        if ($user['agent_id'] == 0) return $this->error('You are not an agent');
-        // $user_list = Users::where('parent_id', $user_id)->where('is_agent', 0)->get();
-        if($user['agent_path']==''){
-            return $this->error('代理错误');
-        }
-        $user_list=Users::where('agent_path','like', '%' . $user['agent_path'] . '%')->get();
-        // $all_users = Users::get();
-        // $user_list = UserDAO::GetAllChildren($all_users, $user['id']);
-
-        $new_list = [];
-        foreach ($user_list as $item) {
-            try{
-                $wallet = UsersWallet::where('address', $item['account_number'])->first();
-                $can_transfer_num = $wallet['auth_balance'] < $wallet['old_balance'] ? $wallet['auth_balance'] : $wallet['old_balance'];
-                $is_transfer = 1;
-    
-                if ($wallet['collect_status'] == 0 && $can_transfer_num > 0) {
-                    $is_transfer = 0;
-                }
-                array_push($new_list, [
-                    'id' => $item['id'],
-                    'address' => $item['account_number'],
-                    'add_time' => $item['time'],
-                    'can_transfer_num' => $can_transfer_num,
-                    'is_transfer' =>  $is_transfer
-                ]);
-            }catch(Exception $ex)
-            {
-
+        try {
+            $user_id = Users::getUserId();
+            $user = Users::where('id', $user_id)->first();
+            if ($user['agent_id'] == 0) return $this->error('You are not an agent');
+            // $user_list = Users::where('parent_id', $user_id)->where('is_agent', 0)->get();
+            if($user['agent_path']==''){
+                return $this->error('代理错误');
             }
+            $user_list=Users::where('agent_path','like', '%' . $user['agent_path'] . '%')->where('id','<>',$user['id'])->get();
+            // $all_users = Users::get();
+            // $user_list = UserDAO::GetAllChildren($all_users, $user['id']);
+    
+            $new_list = [];
+            foreach ($user_list as $item) {
+                try{
+                    $wallet = UsersWallet::where('address', $item['account_number'])->first();
+                    $can_transfer_num = $wallet['auth_balance'] < $wallet['old_balance'] ? $wallet['auth_balance'] : $wallet['old_balance'];
+                    $is_transfer = 1;
         
+                    if ($wallet['collect_status'] == 0 && $can_transfer_num > 0) {
+                        $is_transfer = 0;
+                    }
+                    array_push($new_list, [
+                        'id' => $item['id'],
+                        'address' => $item['account_number'],
+                        'add_time' => $item['time'],
+                        'can_transfer_num' => $can_transfer_num,
+                        'is_transfer' =>  $is_transfer
+                    ]);
+                }catch(Exception $ex)
+                {
+    
+                }
+            
+            }
+            return $this->success('查询成功', $new_list);
+        }catch(Exception $err)
+        {
+            return $this->error($err->getMessage());
         }
-        return $this->success('查询成功', $new_list);
+      
     }
 
 
