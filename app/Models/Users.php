@@ -30,8 +30,21 @@ class Users extends Model
         // 'total_investment',
         'get_bonus',
         'bonus_for_investments',
-        'parent_account'
+        'parent_account',
+        'parent_agent_name',
+
     ];
+
+    public function getParentAgentNameAttribute()
+    {
+        $value = $this->attributes['agent_note_id'];
+        if ($value > 0) {
+            $p = Agent::getAgentById($value);
+            return $p?$p->username:'';
+        } else {
+            return '无';
+        }
+    }
 
     public function getKeyAttribute(){
         return $this->attributes['id']??0;

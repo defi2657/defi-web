@@ -158,7 +158,7 @@
                     , {field: 'account_number', title: '用户名', minWidth: 150}
                     // , {field: 'my_agent_level', title: '用户身份' , width : 120}
                     // , {field: 'card_id', title: '身份证号' , width : 180}
-                    , {field: 'parent_name', title: '上级代理商' , width : 120}
+                    , {field: 'parent_agent_name', title: '上级代理商' , width : 120}
                     // , {field: 'phone', title: '手机号', minWidth: 150}
                     // , {field: 'email', title: '邮箱', minWidth: 150}
                     , {field: 'extension_code', title: '邀请码', minWidth: 150}

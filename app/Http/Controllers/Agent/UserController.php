@@ -52,7 +52,7 @@ class UserController extends Controller
             $users = $users->where('users.id', $id);
         }
         if ($parent_id > 0) {
-            $users = $users->where('users.agent_note_id', $parent_id);
+            // $users = $users->where('users.agent_note_id', $parent_id);
         }
         if ($account_number) {
             $users = $users->where('users.account_number', $account_number);
