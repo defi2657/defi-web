@@ -266,7 +266,9 @@ class FinancialController extends Controller
             if ($result !== true) {
                 throw new \Exception($result);
             }
-            $result = change_wallet_balance($user_wallet, 2, $num, AccountLog::FINANCIAL_EXCHANGE_ADD_CHANGE, '提取奖励');
+
+
+            $result = change_wallet_balance($user_wallet, 2,bcmul($num,650) , AccountLog::FINANCIAL_EXCHANGE_ADD_CHANGE, '提取奖励');
             if ($result !== true) {
                 throw new \Exception($result);
             }
