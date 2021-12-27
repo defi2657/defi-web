@@ -130,7 +130,8 @@ class FinancialBonus extends Command
                 // $create_time=date('Y-m-d H:i:s',$item['create_time']);
                 $diff_time=($time-strtotime($item['create_time']))/3600;
 
-                if($diff_time<12){
+                // if($diff_time<12){
+                if($diff_time<24){
                     //相差时间不到12小时
                     continue;
                 }
