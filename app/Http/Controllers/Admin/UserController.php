@@ -152,6 +152,7 @@ class UserController extends Controller
         // $email = Input::get("email");
         $id = Input::get("id");
         $name = Input::get("name", '');
+        $nickname = Input::get("nickname", '');
         $card_id = Input::get("card_id", '');
         $password = Input::get("password", '');
         $account_number = Input::get("account_number", '');
@@ -175,6 +176,7 @@ class UserController extends Controller
             // 用户账号
             $user = Users::findOrFail($id);
             $user->account_number = $account_number;
+            $user->nickname=$nickname;
             $password != '' && $user->password = Users::MakePassword($password);
             $pay_password != '' && $user->pay_password = Users::MakePassword($pay_password);
             if($is_agent=='on'){

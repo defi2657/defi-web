@@ -20,6 +20,12 @@
                         <input type="text" name="account_number" autocomplete="off" placeholder="" class="layui-input" value="{{$result->account_number}}">
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">虚拟名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="nickname" autocomplete="off" placeholder="" class="layui-input" value="{{$result->nickname}}">
+                    </div>
+                </div>
                 <!-- <div class="layui-form-item">
                     <label class="layui-form-label">手机号</label>
                     <div class="layui-input-block">

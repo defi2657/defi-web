@@ -76,6 +76,12 @@ class InviteController extends Controller{
             if ($val['parent_id'] == $id) {
                 $val['id'] = $value['id'];
                 $val['name'] = $value['account_number'];
+                if($value['nickname'] != null &&   $value['nickname'] !='')
+                {
+                    $val['name']= $val['name'].'('.$value['nickname'].')';
+                }
+                // $val['nickname'] = $value['nickname'];
+        
                 $val['level'] = $level;
                 $val['children'] =self::getSubTree($data, $value['id'], $level + 1);
                 $list[]     = $val;
