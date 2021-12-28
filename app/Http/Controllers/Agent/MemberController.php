@@ -566,9 +566,9 @@ class MemberController extends Controller
         $user_id = $request->input('user_id', 0);
 
         $id = $request->input('id', 0);//编辑
-        if (DB::table('users')->where('account_number', $username)->where('id', $user_id)->first() === null) {
-            return $this->error("该用户不存在！请重新核对用户信息");
-        }
+        // if (DB::table('users')->where('account_number', $username)->where('id', $user_id)->first() === null) {
+        //     return $this->error("该用户不存在！请重新核对用户信息");
+        // }
         $ag = Agent::getUserByUsername($username);
         if ($ag !== null && $id == 0) {
             return $this->error("该用户已经是代理商！");

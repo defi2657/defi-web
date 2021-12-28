@@ -34,7 +34,7 @@
                                 <input type="text" name="username" value="{{$d['username']}}"
                                        lay-verify="required" placeholder="请输入用户名1" autocomplete="off"
                                        class="layui-input"
-                                       readonly>
+                                       >
                             @else
                                 <input type="text" name="username" value=""
                                        lay-verify="required" placeholder="请输入用户名2" autocomplete="off"
@@ -47,6 +47,21 @@
 
                         </div>
                     </div>
+
+                    @if(isset($d['account_number']))
+              
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">绑定账户</label>
+                            <div class="layui-input-block">
+                        
+
+                                <input type="text"  value="{{$d['account_number']}}"
+                                       lay-verify="required" placeholder="绑定账户" autocomplete="off"
+                                     readonly disabled  class="layui-input"
+                                       >
+                            </div>
+                        </div>
+                    @endif
                     <div class="layui-form-item">
                         <label class="layui-form-label">下级身份</label>
                         <div class="layui-input-inline">

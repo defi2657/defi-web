@@ -30,10 +30,16 @@ class Agent extends Model
         'son_level',
         'max_pro_loss',
         'max_pro_ser',
-        'self_info'
+        'self_info',
+        'account_number',
     ];
 
     const AGENT_TYPE = 1; //后台调节法币账户余额
+
+    public function getAccountNumberAttribute()
+    { 
+        return self::hasOne(Users::class, 'id', 'user_id')->value('account_number');
+    }
 
     public function getPhoneAttribute()
     {
@@ -78,6 +84,8 @@ class Agent extends Model
             return self::hasOne(Users::class, 'id', 'user_id')->value('nickname');
         }
     }
+
+
 
     public function getRegTimeAttribute()
     {

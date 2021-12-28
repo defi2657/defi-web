@@ -24,6 +24,7 @@ layui.define(['table', 'form'], function(exports){
             ,{field: 'id', width: 60, title: 'ID', sort: true }
             ,{field: 'username', title: '用户名', minWidth: 150 , event : "getsons",style:"color: #fff;background-color: #5FB878;"}
             ,{field: 'parent_agent_name', title: '上级用户名', width: 120}
+            ,{field: 'account_number', title: '绑定账户', width: 120}
             ,{field: 'agent_name', title: '等级', width: 100}
             // ,{field: 'is_lock', title: '是否锁定', width: 90, templet: '#lockTpl'}
             ,{field: 'is_addson', title: '是否拉新', width: 90, templet: '#addsonTpl'}
