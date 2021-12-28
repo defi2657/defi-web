@@ -176,7 +176,7 @@ class FinancialController extends Controller
                 $data['can_receive'] = true;
             }
             if ($user_financial) {
-                $data['end_date'] = date('Y-m-d H:i:s', strtotime('+12 hour', strtotime($user_financial['create_time'])));
+                $data['end_date'] = date('Y-m-d H:i:s', strtotime('+24 hour', strtotime($user_financial['create_time'])));
                 $data['is_running'] = true;
                 return $this->success('查询成功', $data);
             }
