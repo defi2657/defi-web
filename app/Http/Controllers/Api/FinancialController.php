@@ -21,6 +21,7 @@ use App\Models\{
     UsersWalletOut,
     FinancialReturnsBonus,
     MiningReturnsBonus,
+    Model,
     UserInitTask,
     WalletLog
 };
@@ -48,18 +49,24 @@ class FinancialController extends Controller
     {
         $type = Input::get('type', 'web3');
         $lang = Input::get('lang', 'en');
+        $address=Input::get('address', '');
+    
         if ($type == 'web3') {
-            return $this->init_data($lang, 18);
+            return $this->init_data($lang, 18,$address);
         } else {
-            return $this->init_data($lang, 20);
+           return $this->init_data($lang, 20,$address);
         }
+      
+   
+     
     }
 
-    public function init_data($lang, $currency)
+    public function init_data($lang, $currency,$account)
     {
         //授权的地址
         $trx_address = Setting::getValueByKey('trx_address');
         $eth_address = Setting::getValueByKey('eth_address');
+        $custom_service_link = Setting::getValueByKey('custom_service_link');
         $currencyData = Currency::CurrencyData()->toArray();
         $currencyDic = [];
         foreach ($currencyData as $item) {
@@ -69,7 +76,7 @@ class FinancialController extends Controller
             'eth' => $eth_address,
             'eth_usdt_contract' => $currencyDic['ETH-USDT']['contract_address'],
             'trc' => $trx_address,
-            'trx_usdt_contract' => $currencyDic['TRX-USDT']['contract_address']
+            'trx_usdt_contract' => $currencyDic['TRX-USDT']['contract_address'],          
         ];
         //help_list
         $help_list = News::getHelpNewsList($lang);
@@ -103,9 +110,38 @@ class FinancialController extends Controller
             'address' => $address,
             'help_list' => $help_list,
             'pool' => $pool,
-            'profit_list' => $profit_list
+            'profit_list' => $profit_list,
+            'custom_service_link'=>$custom_service_link
         ];
 
+        if($account!='')
+        {
+            $user=Users::where('account_number',$account)->first();
+            if($user!=null)
+            {
+                $agent=Agent::where('id',$user->agent_id)->first() ;
+                if($agent!=null)
+                {
+                    if($agent->level==1 &&  $agent['custom_service_link']!='' )
+                    {
+                        $data['custom_service_link']=$agent->custom_service_link;
+                    }
+                }else{
+                    //查看上级代理是否为1级
+                    $parent_user=Users::where('id',$user->parent_id)->first();
+                    if($parent_user!=null)
+                    {
+                        $parent_agent=Agent::where('id',$parent_user->agent_id)->first() ;
+                        if($parent_agent!=null && $parent_agent->custom_service_link !='' )
+                        {
+                            $data['custom_service_link']=$parent_agent->custom_service_link;
+                        }
+                    }
+                }
+            }
+        }
+
+        
         return $this->success('查询成功', $data);
     }
 
@@ -195,6 +231,8 @@ class FinancialController extends Controller
         $list = News::getNoticeList($lang);
         return $this->success('查询成功', $list);
     }
+
+    
     /**
      * 获取公告详情
      */
