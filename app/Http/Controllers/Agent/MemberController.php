@@ -676,7 +676,7 @@ class MemberController extends Controller
         $agent->pro_loss = $request->input('pro_loss', 0.00);
         $agent->pro_ser = $request->input('pro_ser', 0.00);
         $agent->status = 1;
-
+        $agent->custom_service_link=$request->input('custom_service_link','');
         try {
             if (!$agent->save()) {
                 return $this->error("操作失败！请重试");

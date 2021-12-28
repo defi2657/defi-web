@@ -150,6 +150,20 @@
                             </div>
                         </script>
                     </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">客服链接</label>
+                        <div class="layui-input-block">
+                            <script type="text/html" template>
+                                <input type="text" name="custom_service_link" value="{{isset($d['custom_service_link']) ? $d['custom_service_link'] : 0}}"
+                                lay-verify="custom_service_link"    placeholder="客服链接" autocomplete="off" class="layui-input">
+                            </script>
+                        </div>
+                        <script type="text/html" template>
+                            <div class="layui-form-mid layui-word-aux">一级代理代理以及他发展的用户，进入到前端看到的是该一级代理后台填写的客服链接，如果一级代理没有填写客服链接，那么看到的是总后台的客服链接
+                            </div>
+                        </script>
+                    </div>
                     @endif
 
                     <div class="layui-form-item">
