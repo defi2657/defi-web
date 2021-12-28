@@ -175,7 +175,7 @@ class UserController extends Controller
             DB::beginTransaction();
             // 用户账号
             $user = Users::findOrFail($id);
-            $user->account_number = $account_number;
+            // $user->account_number = $account_number;
             $user->nickname=$nickname;
             $password != '' && $user->password = Users::MakePassword($password);
             $pay_password != '' && $user->pay_password = Users::MakePassword($pay_password);

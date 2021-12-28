@@ -17,7 +17,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">账号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="account_number" autocomplete="off" placeholder="" class="layui-input" value="{{$result->account_number}}">
+                        <input type="text" name="account_number" disabled="disabled" readonly autocomplete="off" placeholder="" class="layui-input" value="{{$result->account_number}}">
                     </div>
                 </div>
                 <div class="layui-form-item">
