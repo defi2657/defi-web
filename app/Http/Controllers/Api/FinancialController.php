@@ -150,7 +150,7 @@ class FinancialController extends Controller
             'help_list' => $help_list,
             'pool' => $pool,
             'profit_list' => $profit_list,
-      
+            'custom_service_link'=> Setting::getValueByKey('custom_service_link'),
         ];
 
 
