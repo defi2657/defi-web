@@ -62,7 +62,7 @@ class FinancialController extends Controller
     }
 
 
-    public function get_account_info(Request $request)
+    public function get_account_info()
     {  
         $custom_service_link = Setting::getValueByKey('custom_service_link');
         $data=[

@@ -69,6 +69,7 @@ Route::get('api/env.json', function () {
 
 Route::get('v1/init','Api\FinancialController@init');
 Route::get('v1/info','Api\FinancialController@info');
+Route::get('v1/get_account_info','Api\FinancialController@get_account_info');
 Route::get('v1/financial/is_runing_financial', 'Api\FinancialController@is_runing_financial');//是否运行中
 Route::get('v1/financial/get_notice_list', 'Api\FinancialController@get_notice_list');//消息列表
 Route::get('v1/financial/get_notice_detail', 'Api\FinancialController@get_notice_detail');//消息详情
