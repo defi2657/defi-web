@@ -96,7 +96,7 @@
 
             <div class="layui-card-body">
                 <div class="layui-carousel layadmin-backlog" style="background-color: #fff">
-                    <table id="san-user-manage" lay-filter="san-user-manage"></table>
+                    <table id="san-user-manage" lay-filter="san-user-manage" lay-filter="san-user-manage"></table>
                 </div>
             </div>
         </div>
@@ -158,6 +158,7 @@
                     , {field: 'account_number', title: '用户名', minWidth: 150}
                     // , {field: 'my_agent_level', title: '用户身份' , width : 120}
                     // , {field: 'card_id', title: '身份证号' , width : 180}
+                    , {field: 'nickname', title: '昵称' ,edit:'text', width : 120,event:'edit_nickname'}
                     , {field: 'parent_agent_name', title: '上级代理商' , width : 120}
                     // , {field: 'phone', title: '手机号', minWidth: 150}
                     // , {field: 'email', title: '邮箱', minWidth: 150}
@@ -184,6 +185,26 @@
                         }
                     }
                 }
+            });
+
+            table.on('edit(san-user-manage)',function(obj){
+
+                if(obj.field=='nickname')
+                {
+                    admin.req( {
+                        type : "POST",
+                        url : '/agent/user/update_nickname',
+                        dataType : "json",
+                        data : {id :obj.data.id , nickname : obj.value},
+                        done : function(result) { //返回数据根据结果进行相应的处理
+                                layer_msg('修改昵称成功！');
+                        }
+                    });
+                }
+
+                console.log(obj.value); //得到修改后的值
+                console.log(obj.field); //当前编辑的字段名
+                console.log(obj.data); //所在行的所有相关数据
             });
         }
 

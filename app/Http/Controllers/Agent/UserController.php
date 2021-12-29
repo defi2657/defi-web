@@ -36,6 +36,10 @@ class UserController extends Controller
         return view("agent.user.index", ['parent_id' => $parent_id, 'legal_currencies' => $legal_currencies,'setting'=>$setting]);
     }
 
+
+
+
+
     //用户列表
     public function lists(Request $request)
     {
@@ -157,6 +161,18 @@ class UserController extends Controller
         $code=Setting::getValueByKey('proxy_pop_domain');
      
         return $this->ajaxReturn(['invite_code' => $use->extension_code, 'is_admin' => $_self->is_admin,'invite_site'=>$code]);
+    }
+
+    public function update_nickname(Request $request){
+        $id = request()->input('id', 0);
+        $nickname = request()->input('nickname', '');
+        if($id>0)
+        {
+            $res =Users::where('id',$id)->update(['nickname'=>$nickname]);
+            return $this->success();
+        }
+        return $this->error('参数错误');
+
     }
 
     //代理商管理

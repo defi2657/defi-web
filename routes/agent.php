@@ -24,7 +24,7 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
     Route::get('user/index', 'Agent\UserController@index');//用户管理列表
     Route::get('salesmen/index', 'Agent\UserController@salesmenIndex');//代理商管理列表
     Route::get('salesmen/add', 'Agent\UserController@salesmenAdd');//添加代理商页面
-
+    Route::post('user/update_nickname', 'Agent\UserController@update_nickname');//用户昵称
     Route::get('transfer/index', 'Agent\UserController@transferIndex');//出入金列表页
     Route::get('set_password', 'Agent\MemberController@setPas');//修改密码
     Route::get('set_info', 'Agent\MemberController@setInfo');//基本信息
