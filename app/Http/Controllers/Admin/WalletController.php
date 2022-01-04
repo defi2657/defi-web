@@ -37,6 +37,7 @@ class WalletController extends Controller
             DB::raw('sum(lock_change_balance) as lock_change_balance'),
             DB::raw('sum(lever_balance) as lever_balance'),
             DB::raw('sum(lock_lever_balance) as lock_lever_balance'),
+            DB::raw('sum(old_balance) as old_balance'),
         ])->first();
         $total = $total->setAppends([]);
         $user_wallet = $query->orderBy('old_balance', 'desc')->paginate($limit);

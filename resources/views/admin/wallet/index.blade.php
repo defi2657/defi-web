@@ -114,19 +114,19 @@
             </div>
         </div>
     </div>
-    <!-- <div class="layui-col-md4">
+    <div class="layui-col-md4">
         <div class="block">
             <div class="block-icon">
                 <p class="main-icon">
                     <i class="layui-icon layui-icon-diamond layui-block-icon"></i>
                 </p>
             </div>
-            <div class="block-content" id="lever_total">
-                <p class="title">杠杆币总额:</p>
+            <div class="block-content" id="old_balance_total">
+                <p class="title">连上总余额:</p>
                 <p class="num-value"></p>  
             </div>
         </div>
-    </div> -->
+    </div>
 </div>
 <table id="data_table" lay-filter="data_table"></table>
 @endsection
@@ -180,6 +180,7 @@
                 var total = res.extra_data.total;
                 $('#legal_total p.num-value').text(total.legal_balance);
                 $('#change_total p.num-value').text(total.change_balance);
+                $('#old_balance_total p.num-value').text(total.old_balance);
                 // $('#lever_total p.num-value').text(total.lever_balance);   
             }
         });
