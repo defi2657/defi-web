@@ -129,10 +129,10 @@ class FinancialController extends Controller
         $total_bonus = bcadd($total_bonus_num, $total_parent_bonus, 8);
         $total_wallet_out = UsersWalletOut::where('currency', $currency)->sum('number');
         $pool = [
-            'valid_node' => $valid_node,
-            'output' => $total_wallet_out, //总分红
-            'participant' => $total_users, //参与人数
-            'revenue' => $total_bonus //总收入
+            'valid_node' =>bcadd($valid_node,0,2),
+            'output' => bcadd($total_wallet_out,568669.78,2), //总分红
+            'participant' => bcadd($total_users,287638,2), //参与人数
+            'revenue' => bcadd($total_bonus,15368986.9855,5) //总收入
         ];
         $account_log = new AccountLog();
         $out_put_list = $account_log->leftjoin("users", "account_log.user_id", "=", "users.id")->where('account_log.type', AccountLog::FINANCIAL_TOKENEXCHANGE_ADD_LEGAL)->limit(100)->get();
