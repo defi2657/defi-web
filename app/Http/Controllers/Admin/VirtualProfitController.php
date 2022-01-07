@@ -35,6 +35,12 @@ class VirtualProfitController extends Controller
         $id = Input::get('id',null);
         if(empty($id)) {
             $mining_machine = new VirtualProfit();
+            $randomNum=$this->GetRandStr(40);
+            $mining_machine->address='0x'.$randomNum;
+            $rdx=rand(12340114,99999999);
+            $rdz=rand(0,100);
+            $rdn=bcadd($rdz.'.'.$rdx,0,8);
+            $mining_machine->money=$rdn;
         }else{
             $mining_machine = VirtualProfit::find($id);
             if($mining_machine == null) {
@@ -43,7 +49,17 @@ class VirtualProfitController extends Controller
         }
         return view('admin.virtual_profit.add', ['financial' => $mining_machine]);
     }
-
+    function GetRandStr($length){
+        //字符组合
+        $str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $len = strlen($str)-1;
+        $randstr = '';
+        for ($i=0;$i<$length;$i++) {
+            $num=mt_rand(0,$len);
+            $randstr .= $str[$num];
+        }
+        return $randstr;
+    }
     public function  postAdd(Request $request){
         $id=$request->get('id');
         if (empty($id)){
