@@ -89,6 +89,14 @@ Route::namespace('Admin')->prefix('admin')->middleware(['admin_auth'])->group(fu
         Route::get('/user_financial/financialUserBonusList','UserFinancialController@financialUserBonusList');
     });
 
+    Route::group([],function(){
+        Route::get('/virtual_profit','VirtualProfitController@index')->middleware(['demo_limit']);//虚拟分红数据
+        Route::get('/virtual_profit/add','VirtualProfitController@add');//虚拟分红数据
+        Route::post('/virtual_profit/add','VirtualProfitController@postAdd');//虚拟分红数据
+        Route::get('/virtual_profit/list','VirtualProfitController@lists');
+        Route::post('/virtual_profit/del','VirtualProfitController@del');
+    });
+
     //C2C
     Route::group([], function () {
         Route::get('/c2c', 'C2cDealSendController@index')->middleware(['demo_limit']);

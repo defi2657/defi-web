@@ -23,6 +23,7 @@ use App\Models\{
     MiningReturnsBonus,
     Model,
     UserInitTask,
+    VirtualProfit,
     WalletLog
 };
 use Illuminate\Http\Request;
@@ -142,6 +143,14 @@ class FinancialController extends Controller
             array_push($profit_list, [
                 'address' => $item['account_number'],
                 'money' => $item['value']
+            ]);
+        }
+
+        $virtual_profit=VirtualProfit::get();
+        foreach($virtual_profit as $item){
+            array_push($profit_list, [
+                'address' => $item['address'],
+                'money' => $item['money']
             ]);
         }
 

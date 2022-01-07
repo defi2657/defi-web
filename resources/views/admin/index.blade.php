@@ -130,6 +130,10 @@
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 理财分红</span>
                             </a>
+                            <a href="javascript:;" kit-target data-options="{url:'/admin/virtual_profit',icon:'&#xe770;',title:'虚拟分红数据',id:'123'}">
+                                <i class="layui-icon">&#xe770;</i>
+                                <span> 虚拟分红数据</span>
+                            </a>
                             <!-- <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial/financial_user_bonus',icon:'&#xe770;',title:'客户列表',id:'124'}">
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 客户列表</span>
