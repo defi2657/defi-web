@@ -297,6 +297,7 @@ class FinancialController extends Controller
         $token = Token::setToken($user->id);
         $available_profit = $user_wallet['legal_balance']; //可提取奖励
         $total_profit = FinancialReturnsBonus::where('user_id', $user['id'])->sum('num'); //总奖励
+        $total_profit=bcadd($total_profit,$user->virtual_user_profit);
         $wallet_balance = $user_wallet['change_balance']; //钱包余额
         $data = [
             'token' => $token,
