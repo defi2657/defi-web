@@ -53,9 +53,11 @@
                                 ,{field: 'currency_name', title: '币种', width: 100, totalRowText: '小计', rowspan: 2}
                                 
                                 ,{field: 'address', title: '地址', width: 380, rowspan: 2}
-                                ,{title: '钱包', width: 380, colspan: 2, rowspan: 1, align: "center"}
+                                ,{title: '奖金池', width: 380, colspan: 2, rowspan: 1, align: "center"}
+                                ,{title: '奖金', width: 380, colspan: 2, rowspan: 1, align: "center"}
+                                ,{field: 'lever_balance', title: '游戏余额', width: 170,   rowspan: 2}
                                 // ,{title: '撮合', width: 380, colspan: 2, rowspan: 1, align: "center"}
-                                // ,{title: '法币', width: 380, colspan: 2, rowspan: 1, align: "center"}
+                        
                                 // ,{title: '杠杆', width: 380, colspan: 2, rowspan: 1, align: "center"}
 
                                 // ,{field: 'old_balance', title: '链上余额', width: 150, totalRow: true, rowspan: 2}
@@ -64,11 +66,12 @@
                                 ,{fixed: 'right', title: '操作', width: 360, align: 'center', toolbar: '#barDemo', rowspan: 2}
 
                             ], [
-                                {field:'change_balance',title:'余额', width:150}
-                                ,{field:'lock_change_balance',title:'锁定', width:150}
+                                  {field:'legal_balance',title:'余额', width:150}
+                                ,{field:'lock_legal_balance',title:'锁定', width:150} 
+                                ,{field:'change_balance',title:'余额', width:150}
+                                ,{field:'lock_change_balance',title:'冻结', width:150}
 
-                                // ,{field:'legal_balance',title:'余额', width:150}
-                                // ,{field:'lock_legal_balance',title:'锁定', width:150}
+                              
 
                                 // ,{field:'lever_balance',title:'余额', width:150}
                                 // ,{field:'lock_lever_balance',title:'锁定', width:150} 

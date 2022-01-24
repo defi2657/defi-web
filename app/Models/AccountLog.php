@@ -27,12 +27,12 @@ class AccountLog extends Model
     ];
 
     public static $scene_list=[
-            AccountLog::ADMIN_LEGAL_BALANCE =>  '理财交易余额',
-            AccountLog::ADMIN_LOCK_LEGAL_BALANCE => '理财交易锁定余额',
+            AccountLog::ADMIN_LEGAL_BALANCE =>  '奖金池余额',
+            AccountLog::ADMIN_LOCK_LEGAL_BALANCE => '奖金池锁定余额',
             AccountLog::ADMIN_CHANGE_BALANCE => '奖金余额',
             AccountLog::ADMIN_LOCK_CHANGE_BALANCE => '奖金锁定余额',
-            AccountLog::ADMIN_LEVER_BALANCE => '游戏仓库余额',
-            AccountLog::ADMIN_LOCK_LEVER_BALANCE=>'游戏仓库锁定余额'
+            AccountLog::ADMIN_LEVER_BALANCE => '游戏余额',
+            AccountLog::ADMIN_LOCK_LEVER_BALANCE=>'游戏锁定余额'
     ];
 
     public static $trade_scene=[

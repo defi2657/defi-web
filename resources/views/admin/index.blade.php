@@ -122,17 +122,21 @@
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 理财管理</span>
                             </a> -->
-                            <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial',icon:'&#xe770;',title:'用户矿机',id:'122'}">
+                            <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial',icon:'&#xe770;',title:'用户矿机',id:'user_financial'}">
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 用户理财</span>
                             </a>
-                            <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial/bonus',icon:'&#xe770;',title:'矿机分红',id:'123'}">
+                            <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial/bonus',icon:'&#xe770;',title:'矿机分红',id:'bonus'}">
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 理财分红</span>
                             </a>
-                            <a href="javascript:;" kit-target data-options="{url:'/admin/virtual_profit',icon:'&#xe770;',title:'虚拟分红数据',id:'123'}">
+                            <a href="javascript:;" kit-target data-options="{url:'/admin/virtual_profit',icon:'&#xe770;',title:'虚拟分红数据',id:'virtual_profit'}">
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 虚拟分红数据</span>
+                            </a>
+                            <a href="javascript:;" kit-target data-options="{url:'/admin/virtual_user_profit',icon:'&#xe770;',title:'用户分红数据',id:'virtual_user_profit'}">
+                                <i class="layui-icon">&#xe770;</i>
+                                <span> 用户分红数据</span>
                             </a>
                             <!-- <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial/financial_user_bonus',icon:'&#xe770;',title:'客户列表',id:'124'}">
                                 <i class="layui-icon">&#xe770;</i>

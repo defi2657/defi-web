@@ -490,6 +490,21 @@ class UserController extends Controller
         return view('admin.user.candy_conf')->with('user', $user);
     }
 
+    public function virtualUserProfit(Request $request, $id)
+    {
+        $user = Users::find($id);
+        return view('admin.user.virtual_user_profit')->with('user', $user);
+    }
+
+    public function postvirtualUserProfit(Request $request, $id)
+    {
+        $virtual_user_profit = $request->get('virtual_user_profit', 0);
+    
+        $res= Users::where('id',$id)->update(['virtual_user_profit'=>$virtual_user_profit]);
+   
+        return $this->success('操作成功');
+    }
+
     public function postCandyConf(Request $request, $id)
     {
         $user = Users::find($id);

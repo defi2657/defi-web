@@ -194,6 +194,11 @@ Route::namespace('Admin')->prefix('admin')->middleware(['admin_auth'])->group(fu
         Route::post('blacklist', 'UserController@blacklist')->middleware(['demo_limit']);//加入黑名单
         Route::get('candy_conf/{id}', 'UserController@candyConf'); //
         Route::post('candy_conf/{id}', 'UserController@postCandyConf'); //
+
+
+        Route::get('virtual_user_profit/{id}', 'UserController@virtualUserProfit'); 
+        Route::post('virtual_user_profit/{id}', 'UserController@postVirtualUserProfit'); //
+
         Route::get('/user/csv', 'UserController@csv')->middleware(['demo_limit']);//导出会员
 
     });

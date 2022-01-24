@@ -30,6 +30,8 @@
 @section('scripts')
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="users_wallet">钱包管理</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="virtual_user_profit">虚拟调整</a>
+    
     <!-- <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="candy_change">通证调节</a> -->
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
@@ -203,7 +205,17 @@
                         , maxmin: true
                     });
                     layer.full(index);
-                } else if (layEvent =='transfer'){
+                }
+                if (layEvent =='virtual_user_profit'){
+                    var index = layer.open({
+                        title: '虚拟配置'
+                        , type: 2
+                        , content: '/admin/user/virtual_user_profit/' + data.id
+                        , maxmin: true
+                    });
+                    layer.full(index);
+                }
+                if (layEvent =='transfer'){
                     layer.confirm('确定划转吗？', function (index) {
                         // //向服务端发送删除指令
                         // $.ajax({
