@@ -90,6 +90,11 @@ Route::namespace('Admin')->prefix('admin')->middleware(['admin_auth'])->group(fu
     });
 
     Route::group([],function(){
+  
+        Route::get('/vistlog/list','VistLogController@list');
+        Route::get('/vistlog/index','VistLogController@index');
+    });
+    Route::group([],function(){
         Route::get('/virtual_profit','VirtualProfitController@index')->middleware(['demo_limit']);//虚拟分红数据
         Route::get('/virtual_profit/add','VirtualProfitController@add');//虚拟分红数据
         Route::post('/virtual_profit/add','VirtualProfitController@postAdd');//虚拟分红数据

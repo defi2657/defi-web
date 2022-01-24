@@ -341,6 +341,9 @@
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" kit-target data-options="{url:'/admin/setting/index',icon:'&#xe658;',title:'基础设置', id:'2'}"><i class="layui-icon">&#xe658;</i><span> 基础设置</span></a></dd>
                     </dl>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" kit-target data-options="{url:'/admin/vistlog/index',icon:'&#xe658;',title:'访问日志', id:'vistlog'}"><i class="layui-icon">&#xe658;</i><span> 访问日志</span></a></dd>
+                    </dl>
                     <!-- <dl class="layui-nav-child">
                         <dd><a href="javascript:;" kit-target data-options="{url:'/admin/currency',icon:'&#xe659;',title:'币种管理', id:'16'}"><i class="layui-icon">&#xe659;</i><span> 币种管理</span></a></dd>
                     </dl> -->
