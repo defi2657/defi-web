@@ -105,6 +105,7 @@
 
 @section('scripts')
     <script type="text/html" id="table-useradmin-webuser">
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="virtual_user_profit">虚拟调整</a>
         <a class="layui-btn layui-btn-normal layui-btn-xs copy" lay-event="copy_link">推广链接</a> 
     </script>
 
@@ -202,6 +203,8 @@
                     });
                 }
 
+                
+
                 console.log(obj.value); //得到修改后的值
                 console.log(obj.field); //当前编辑的字段名
                 console.log(obj.data); //所在行的所有相关数据
@@ -240,6 +243,15 @@
                 copy(url);
             }
            
+            if (event =='virtual_user_profit'){
+                var index = layer.open({
+                    title: '虚拟配置'
+                    , type: 2
+                    , content: '/agent/user/virtual_user_profit/' + data.id
+                    , maxmin: true
+                });
+                layer.full(index);
+            }
 
             if (event == 'son') {
                 load(data.id);

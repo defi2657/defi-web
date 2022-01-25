@@ -14,7 +14,11 @@
                     <dd data-name="console" class="layui-this">
                         <a lay-href="/agent/home">控制台</a>
                     </dd>
+                    <dd data-name="vistlog" >
+                        <a lay-href="/agent/vistlog/index">访问日志</a>
+                    </dd>
                 </dl>
+             
             </li>
             <li data-name="user" class="layui-nav-item">
                 <a href="javascript:;" lay-tips="用户管理" lay-direction="2">
