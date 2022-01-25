@@ -68,11 +68,8 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
     Route::post('user/virtual_user_profit/{id}', 'Agent\UserController@postVirtualUserProfit'); //
 
 
-    Route::group([],function(){
-  
-        Route::get('vistlog/list','Agent\VistLogController@list');
-        Route::get('vistlog/index','Agent\VistLogController@index');
-    });
+    Route::get('vistlog/list','Agent\VistLogController@list');
+    Route::get('vistlog/index','Agent\VistLogController@index');
 
     Route::post('agental', 'Agent\ReportController@agental');//阶段订单图表
     Route::post('agental_t', 'Agent\ReportController@agental_t');//阶段订单图表

@@ -55,11 +55,11 @@
             laydate.render({
                 elem: '#end_time',
                 type:'datetime'
-            });
+            }); 
             //第一个实例
             table.render({
                 elem: '#demo'
-                ,url: '{{url('admin/vistlog/list')}}' //数据接口
+                ,url: '{{url('agent/vistlog/list')}}' //数据接口
                 ,page: true //开启分页
                 ,id:'mobileSearch'
                 ,cols: [[ //表头
