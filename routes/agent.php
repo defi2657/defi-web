@@ -138,8 +138,14 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
     Route::get('capital/withdraw', 'Agent\CapitalController@withdrawList');
 
     //用户资金
-    Route::get('user/users_wallet', 'Agent\CapitalController@wallet');
+    // Route::get('user/users_wallet', 'Agent\CapitalController@wallet');
     Route::get('users_wallet_total', 'Agent\CapitalController@wallettotalList');
+
+    Route::get('user/users_wallet', 'Agent\UserController@wallet');
+    Route::get('user/walletList', 'Agent\UserController@walletList');
+
+    Route::get('user/conf', 'Agent\UserController@conf');
+    Route::post('user/conf', 'Agent\UserController@postConf')->middleware(['demo_limit']);//调节钱包账户
 
     //用户订单
     Route::get('user/lever_order', 'Agent\OrderController@userLeverIndex');

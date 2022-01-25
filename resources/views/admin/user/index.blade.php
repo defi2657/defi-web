@@ -215,6 +215,17 @@
                     });
                     layer.full(index);
                 }
+
+                if (layEvent =='users_wallet'){
+                    var index = layer.open({
+                        title: '钱包管理'
+                        , type: 2
+                        , content: '{{url('/admin/user/users_wallet')}}?id=' + data.id
+                        , maxmin: true
+                    });
+                    layer.full(index);
+                }
+                
                 if (layEvent =='transfer'){
                     layer.confirm('确定划转吗？', function (index) {
                         // //向服务端发送删除指令

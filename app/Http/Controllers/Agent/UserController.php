@@ -10,10 +10,114 @@
 namespace App\Http\Controllers\Agent;
 
 use Illuminate\Http\Request;
-use App\Models\{AccountLog, Agent, Currency, Setting, Users, UsersWalletOut};
-
+use App\Models\{AccountLog,UsersWallet, Agent, Currency, Setting, Users, UsersWalletOut};
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
+
+    public function postConf(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $validator = Validator::make($request->all(), [
+                'way' => 'required|string', //增加 increment；减少 decrement
+                'type' => 'required|integer|min:1',
+                'conf_value' => 'required|numeric|min:0', //值
+                'info' => 'required'
+            ], [
+                'required' => ':attribute 不能为空',
+            ], [
+                'info' => '调节备注'
+            ]);
+
+            $wallet = UsersWallet::find($request->get('id'));
+            $user = Users::getById($wallet->user_id);
+
+            //以上验证通过后 继续验证
+            $validator->after(function ($validator) use ($wallet, $user) {
+                if (empty($wallet)) {
+                    return $validator->errors()->add('wallet', '没有此钱包');
+                }
+
+                if (empty($user)) {
+                    return $validator->errors()->add('user', '没有此用户');
+                }
+            });
+
+            //如果验证不通过
+            if ($validator->fails()) {
+                throw new \Exception($validator->errors()->first());
+            }
+
+            $way = $request->get('way', 'increment');
+            $type = $request->get('type', 1);
+            $conf_value = $request->get('conf_value', 0);
+            $info = $request->get('info', ':');
+
+            $balance_type = ceil($type / 2);
+            $is_lock = $type % 2 ? false : true;
+            $scene_list=AccountLog::$scene_list;
+        
+
+            $way == 'decrement' &&  $conf_value = -$conf_value;
+
+            $result = change_wallet_balance($wallet, $balance_type, $conf_value, $scene_list[$type], $info, $is_lock);
+            if ($result !== true) {
+                throw new \Exception($result);
+            }
+            DB::commit();
+            return $this->success('操作成功');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->error($e->getMessage());
+        }
+    }
+
+
+    /*
+     * 调节账户
+     * */
+    public function conf(Request $request)
+    {
+        $id = $request->get('id', 0);
+        if (empty($id)) {
+            return $this->error('参数错误');
+        }
+        $result = UsersWallet::find($id);
+        if (empty($result)) {
+            return $this->error('无此结果');
+        }
+        $account = Users::where('id', $result->user_id)->value('phone');
+        if (empty($account)) {
+            $account = Users::where('id', $result->user_id)->value('email');
+        }
+        $result['account'] = $account;
+        $result['scene_list']=AccountLog::$scene_list;
+        return view('agent.user.conf', ['results' => $result]);
+    }
+    public function wallet(Request $request)
+    {
+        $id = $request->get('id', null);
+        if (empty($id)) {
+            return $this->error('参数错误');
+        }
+        return view("agent.user.user_wallet", ['user_id' => $id]);
+    }
+
+    public function walletList(Request $request)
+    {
+        $limit = $request->get('limit', 10);
+        $user_id = $request->get('user_id', null);
+        if (empty($user_id)) {
+            return $this->error('参数错误');
+        }
+        $list = new UsersWallet();
+        $list = $list->where('user_id', $user_id)->orderBy('id', 'desc')->paginate($limit);
+        return response()->json(['code' => 0, 'data' => $list->items(), 'count' => $list->total()]);
+    }
+
 
     //用户管理
     public function index()

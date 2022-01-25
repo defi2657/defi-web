@@ -105,7 +105,8 @@
 
 @section('scripts')
     <script type="text/html" id="table-useradmin-webuser">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="virtual_user_profit">虚拟调整</a>
+    <a class="layui-btn layui-btn-xs" lay-event="users_wallet">钱包管理</a>
+        <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="virtual_user_profit">虚拟调整</a>
         <a class="layui-btn layui-btn-normal layui-btn-xs copy" lay-event="copy_link">推广链接</a> 
     </script>
 
@@ -163,9 +164,9 @@
                     , {field: 'parent_agent_name', title: '上级代理商' , width : 120}
                     // , {field: 'phone', title: '手机号', minWidth: 150}
                     // , {field: 'email', title: '邮箱', minWidth: 150}
-                    , {field: 'extension_code', title: '邀请码', minWidth: 150}
+                    , {field: 'extension_code', title: '邀请码', minWidth: 100}
                     , {field: 'time', title: '加入时间', sort: true, width: 170}
-                    , {title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser'}
+                    , {title: '操作', width: 260, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser'}
                 ]]
                 , page: true
                 , limit: 30
@@ -252,6 +253,16 @@
                 });
                 layer.full(index);
             }
+
+            if (event === 'users_wallet') {
+                var index = layer.open({
+                    title: '钱包管理'
+                    , type: 2
+                    , content: '{{url('/agent/user/users_wallet')}}?id=' + data.id
+                    , maxmin: true
+                });
+                layer.full(index);
+            } 
 
             if (event == 'son') {
                 load(data.id);
