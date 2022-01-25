@@ -74,7 +74,7 @@ class FinancialBonus extends Command
     public function  sum_financial_old(){
 
         $now = Carbon::now();
-        $date = date('Ymd', time() -  24 * 60 * 60);
+        $date = date('Ymd', time() -  6 * 60 * 60);
         $end_date=date('Ymd',time());
         $time = time();
         $this->info('统计分红开始-' . $now->toDateTimeString());
@@ -131,7 +131,7 @@ class FinancialBonus extends Command
                 $diff_time=($time-strtotime($item['create_time']))/3600;
 
                 // if($diff_time<12){
-                if($diff_time<24){
+                if($diff_time<6){
                     //相差时间不到12小时
                     continue;
                 }
