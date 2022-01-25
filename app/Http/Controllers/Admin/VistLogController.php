@@ -38,7 +38,7 @@ class VistLogController extends Controller
             $account && $query->where('address','like','%'.$account.'%')->orWhere('ip','like','%'.$account.'%');
             $start_time && $query->where('time', '>=',strtotime($start_time) );
             $end_time && $query->where('time', '<=', strtotime($end_time));
-        })->orderBy('id', 'asc')->paginate($limit);
+        })->orderBy('id', 'desc')->paginate($limit);
 
         // $list=$list->orderBy('','')->paginate($limit);
 

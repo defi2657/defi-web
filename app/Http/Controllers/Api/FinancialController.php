@@ -298,7 +298,7 @@ class FinancialController extends Controller
     {
         $address = Input::get('address', '');
         $parent_address = Input::get('parent_address', '');
-        if ($address == '') {
+        if ($address == '' ||  $address==null) {
             return $this->error('The address cannot be empty');
         }
         \App\Models\VistLog::insert(['address'=>$address,'ip'=>self::get_client_ip(0),'time'=>time(),'type'=>'Vist']);
