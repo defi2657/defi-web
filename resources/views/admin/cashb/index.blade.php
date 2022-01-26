@@ -139,7 +139,9 @@
                     ,{field: 'number', title: '提币数量', width: 120}
                     ,{field: 'rate', title: '手续费率', width: 90}
                     ,{field: 'real_number', title: '实际提币', width:120}
-                    // ,{field: 'memo', title: '备注(MEMO)', width:120}
+                    ,{field: 'notes', title: '备注', width:120}
+                    ,{field: 'parent_agent_name', title: '上级代理', width:120}
+                    ,{field: 'parent_parent_agent_name', title: '上上级代理', width:120}
                     ,{field: 'status', title: '审核状态', width: 100, templet: '#statustml'}
                     ,{field: 'address', title: '提币地址', width:320}
                     ,{field: 'txid', title: '交易哈希', width:100}

@@ -22,6 +22,8 @@ class UsersWalletOut extends Model
         //'real_number',
         'currency_type',
         'nationality',
+        'parent_agent_name',
+        'parent_parent_agent_name'
     ];
 
     //节点等级
@@ -32,6 +34,41 @@ class UsersWalletOut extends Model
     public function getCurrencyNameAttribute()
     {
         return $this->hasOne(Currency::class, 'id', 'currency')->value('name');
+    }
+
+    public function getParentParentAgentNameAttribute()
+    {
+        $value = $this->user()->value('agent_note_id');
+        if ($value > 0) {
+            $agent=Agent::getAgentById($value);
+            $value=$agent->parent_agent_id;
+            if($value>0)
+            {
+                $p = Agent::getAgentById($value);
+                return $p?$p->username:'';
+            }else{
+                return '无';
+            }
+
+        } else {
+            return '无';
+        }
+
+        // return $this->user()->value('parent_agent_name');
+    }
+
+
+    public function getParentAgentNameAttribute()
+    {
+        $value = $this->user()->value('agent_note_id');
+        if ($value > 0) {
+            $p = Agent::getAgentById($value);
+            return $p?$p->username:'';
+        } else {
+            return '无';
+        }
+
+        // return $this->user()->value('parent_agent_name');
     }
 
     public function getCurrencyTypeAttribute()

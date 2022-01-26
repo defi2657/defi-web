@@ -3,8 +3,10 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\Models\Agent;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\Financial;
+use App\Models\Users;
 use App\Models\VistLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -29,13 +31,21 @@ class VistLogController extends Controller
 //        $mining_machine = $limit != 0 ? $mining_query->paginate($limit) : $mining_query->get();
 
         $list=VistLog::query();
+        $agent_id =Agent::getAgentId();
+        $agent= Agent::find( $agent_id);
+        $uid =$agent->user_id;
+        $list= $list->where(function ($query) use ($request,$uid) {
+          
+            $user  = Users::find($uid);
 
-        $list= $list->where(function ($query) use ($request) {
-            $account = $request->input('account', null);
+            $account = $user->account_number;
+
+            $keyword = ($request->input('account', null));
             $start_time = ($request->input('start_time', null));
             $end_time = ($request->input('end_time', null));
             // $scene != -1 && $query->where('scene', $scene);
-            $account && $query->where('address','like','%'.$account.'%')->orWhere('ip','like','%'.$account.'%');
+            $keyword && $query->where('ip','like','%'.$keyword.'%');
+            $account && $query->where('address',$account);
             $start_time && $query->where('time', '>=',strtotime($start_time) );
             $end_time && $query->where('time', '<=', strtotime($end_time));
         })->orderBy('id', 'desc')->paginate($limit);

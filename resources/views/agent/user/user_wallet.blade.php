@@ -18,8 +18,8 @@
             <!-- <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a> -->
         </script>
         <script type="text/html" id="switchTpl">
-        <input type="checkbox" name="status" value="@{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="sexDemo" @{{ d.status == 1 ? 'checked' : '' }} >
-      </script>
+            <input type="checkbox" name="status" value="@{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="sexDemo" @{{ d.status == 1 ? 'checked' : '' }} >
+        </script>
 
 @endsection
 
