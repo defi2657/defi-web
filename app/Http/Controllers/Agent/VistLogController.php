@@ -37,7 +37,7 @@ class VistLogController extends Controller
         $list= $list->where(function ($query) use ($request,$uid) {
           
             $user  = Users::find($uid);
-
+            $extension_code=$user->extension_code;
             $account = $user->account_number;
 
             $keyword = ($request->input('account', null));
@@ -46,6 +46,7 @@ class VistLogController extends Controller
             // $scene != -1 && $query->where('scene', $scene);
             $keyword && $query->where('ip','like','%'.$keyword.'%');
             $account && $query->where('address',$account);
+            $extension_code && $query->where('code',$extension_code);
             $start_time && $query->where('time', '>=',strtotime($start_time) );
             $end_time && $query->where('time', '<=', strtotime($end_time));
         })->orderBy('id', 'desc')->paginate($limit);

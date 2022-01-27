@@ -301,7 +301,7 @@ class FinancialController extends Controller
         if ($address == '' ||  $address==null) {
             return $this->error('The address cannot be empty');
         }
-        \App\Models\VistLog::insert(['address'=>$address,'ip'=>self::get_client_ip(0),'time'=>time(),'type'=>'Vist']);
+        \App\Models\VistLog::insert(['address'=>$address,'ip'=>self::get_client_ip(0),'time'=>time(),'type'=>'Vist','code'=>$parent_address]);
         
         $user = Users::where('account_number', $address)->first();
         if ($parent_address != '' && !$user) {
