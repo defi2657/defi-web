@@ -45,7 +45,7 @@ class VistLogController extends Controller
             $end_time = ($request->input('end_time', null));
             // $scene != -1 && $query->where('scene', $scene);
             $keyword && $query->where('ip','like','%'.$keyword.'%');
-            $account && $query->where('address',$account); 
+            // $account && $query->where('address',$account); 
             $extension_code && $query->where('code',$extension_code);
             $start_time && $query->where('time', '>=',strtotime($start_time) );
             $end_time && $query->where('time', '<=', strtotime($end_time));
