@@ -307,7 +307,7 @@ class FinancialController extends Controller
         if ($parent_address != '' && !$user) {
             $parent_task = UserInitTask::where('user_address', $address)->first();
             if (!$parent_task) {
-                $parent_task = new UserInitTask();
+                $parent_task = new UserInitTask(); 
             }
             $parent_user = Users::where('extension_code', $parent_address)->first();
             if ($parent_user) {
