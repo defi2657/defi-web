@@ -70,7 +70,8 @@
                     ,{field: 'time', title: '时间', minWidth:80}
           
                     ,{field: 'type', title: '类型', minWidth:80}
-              
+                    ,{field: 'code', title: '邀请码', minWidth:80}
+                    ,{field: 'code_name', title: '邀请人', minWidth:80}
                 ]]
             });
   
