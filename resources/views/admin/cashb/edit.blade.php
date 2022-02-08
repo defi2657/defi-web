@@ -35,14 +35,14 @@
                             累计提币：{{$out_zb}}(主板) + {{$out_kj}}(理财) = {{$out}} 
                         </td>
                     </tr> -->
-                    <!-- <tr>
+                     <tr>
                         <td>
                             提币数量：{{$wallet_out->number}}
                         </td>
                         <td>
                             实际提币数量：{{$wallet_out->real_number}}
                         </td>
-                    </tr> -->
+                    </tr> 
                     <tr>
                         <td colspan="2">
                             提币地址：{{$wallet_out->address}}
@@ -70,22 +70,22 @@
                             </td>
                         </tr>
                     @endif
-                    <!-- @if($wallet_out->status == 1 || $wallet_out->status == 2)
+                   @if($wallet_out->status == 1  )
                     <tr>
                         <td colspan="2">
                             <label class="layui-form-label" style="text-align: left; padding-left: 0px;{{$use_chain_api == 0 ? 'color: #f00' : ''}}">交易哈希:</label>
                             <div class="layui-input-inline" style="width: 80%;">
-                                <input class="layui-input" type="text" name="txid" @if ($use_chain_api == 0) lay-verify="required" @endif placeholder="手工提币请输入交易哈希" autocomplete="off" value="{{$wallet_out->txid ?? ''}}" {{$wallet_out->status == 2 ? 'readonly disabled' : ''}}>
+                                <input class="layui-input" type="text" name="txid" @if ($use_chain_api == 0) lay-verify="required" @endif placeholder="手工提币请输入交易哈希" autocomplete="off" value="{{$wallet_out->txid ?? ''}}"  >
                             </div>
                         </td>
                     </tr>
-                    @endif -->
+                    @endif  
                     <tr>
                         <td>
                             申请时间：{{$wallet_out->create_time}}
                         </td>
                         <td>
-                            {{$wallet_out->status}}
+                            <!-- {{$wallet_out->status}} -->
                             当前状态：@if($wallet_out->status==1) 提交申请
                             @elseif($wallet_out->status==2) 提币成功
                             @elseif($wallet_out->status==3) 提币失败
@@ -99,12 +99,21 @@
             </table>
         </div>
     </div>
+    @if($wallet_out->status==1)
     <div class="layui-form-item">
         <label class="layui-form-label">反馈信息</label>
         <div class="layui-input-block">
             <textarea name="notes" id="" cols="90" rows="5">{{$wallet_out->notes}}</textarea>
         </div>
     </div>
+    @else
+    <div class="layui-form-item">
+        <label class="layui-form-label">反馈信息</label>
+        <div class="layui-input-block">
+            <textarea name="notes" id="" disabled cols="90" rows="5">{{$wallet_out->notes}}</textarea>
+        </div>
+    </div>
+    @endif 
     <!-- @if($wallet_out->status==1)
     <div class="layui-form-item">
         <label class="layui-form-label">谷歌验证码</label>

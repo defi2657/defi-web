@@ -131,7 +131,7 @@ class UsersWalletOut extends Model
         return self::sum('number');
     }
 
-    public static function AuditWithdraw($id,$method,$notes='system_audit'){
+    public static function AuditWithdraw($id,$method,$notes='system_audit',$txid=''){
         $balance_type = [2, 'change', '币币'];
         // $field_name = $balance_type[1] . '_balance';
         $type = $balance_type[0];
@@ -186,18 +186,24 @@ class UsersWalletOut extends Model
                     throw new \Exception($change_result);
                 }
                  
-                // $use_chain_api = Setting::getValueByKey('use_chain_api', 0);
+                $use_chain_api = Setting::getValueByKey('use_chain_api', 0);
                 // if ($use_chain_api == 0) {
-                //     if ($txid == '') {
+                //     if ( empty($txid)   ) {
                 //         throw new \Exception('当前提币没有使用接口,请填写交易哈希以便于用户查询');
                 //     }
                 //     $wallet_out->txid = $txid;
-                // } else {
+                // } 
+                // else {
                 //     throw_if(empty($verificationcode), new \Exception('请填写验证码'));
                 // }
-                
 
-                $wallet_out->use_chain_api = 0;
+                if ( empty($txid)   ) {
+                    throw new \Exception('当前提币没有使用接口,请填写交易哈希以便于用户查询');
+                }
+                $wallet_out->txid = $txid;
+                $wallet_out->txid_status=1; 
+
+                $wallet_out->use_chain_api = $use_chain_api ;
                 $wallet_out->status = 2; //提币成功状态
             } else {
                 $change_result = change_wallet_balance($user_wallet, $type, -$number, AccountLog::WALLETOUTBACK, '提币失败,锁定余额减少', true);

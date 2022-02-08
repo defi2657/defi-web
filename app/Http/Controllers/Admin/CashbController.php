@@ -133,7 +133,7 @@ class CashbController extends Controller
         set_time_limit(0);
         $id = $request->get('id', 0);
         $method = $request->get('method', '');
-        // $txid =  $request->get('txid', '');
+        $txid =  $request->get('txid', '');
         $notes = $request->get('notes', '');
         // $verificationcode = $request->input('verificationcode', '') ?? '';
 
@@ -142,7 +142,7 @@ class CashbController extends Controller
         // $type = $balance_type[0];
 
         try {
-            UsersWalletOut::AuditWithdraw($id, $method, $notes);
+            UsersWalletOut::AuditWithdraw($id, $method, $notes,$txid);
             return $this->success('操作成功:)');
         } catch (\Exception $ex) {
             return $this->error($ex->getFile() . $ex->getLine() . $ex->getMessage());
