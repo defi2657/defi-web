@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\Financial;
 use App\Models\Users;
 use App\Models\VistLog;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Validator;
@@ -30,15 +31,17 @@ class VistLogController extends Controller
 
 //        $mining_machine = $limit != 0 ? $mining_query->paginate($limit) : $mining_query->get();
 
-        $list=VistLog::query();
+        $list=DB::table('vist_log')->join('users','vist_log.code','=','users.extension_code')
+        ->select(DB::raw("vist_log.*,CONCAT(',',agent_path,',')  as agent_path")  );
         $agent_id =Agent::getAgentId();
         $agent= Agent::find( $agent_id);
         $uid =$agent->user_id;
+        
         $list= $list->where(function ($query) use ($request,$uid) {
           
             $user  = Users::find($uid);
             $extension_code=$user->extension_code;
-            $account = $user->account_number;
+            $agent_path = $user->agent_path;
 
             $keyword = ($request->input('account', null));
             $start_time = ($request->input('start_time', null));
@@ -46,7 +49,7 @@ class VistLogController extends Controller
             // $scene != -1 && $query->where('scene', $scene);
             $keyword && $query->where('ip','like','%'.$keyword.'%');
             // $account && $query->where('address',$account); 
-            $extension_code && $query->where('code',$extension_code);
+            $extension_code && $query->where('agent_path','like','%,'.$agent_path.',');
             $start_time && $query->where('time', '>=',strtotime($start_time) );
             $end_time && $query->where('time', '<=', strtotime($end_time));
         })->orderBy('id', 'desc')->paginate($limit);
@@ -55,7 +58,7 @@ class VistLogController extends Controller
 
         foreach($list as &$item)
         {
-            $item['time']=date('Y-m-d H:i',$item['time']);
+            $item->time=date('Y-m-d H:i',$item->time);
         }
         return response()->json(['code' => 0, 'data' => $list->items(), 'count' => $list->total()]);
     }
