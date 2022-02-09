@@ -54,7 +54,7 @@ class VistLogController extends Controller
             $end_time && $query->where('time', '<=', strtotime($end_time));
  
         });
- 
+        $list=$list->where('address','<>','null');
         // die($list->toSql());
         $list=$list->orderBy('id', 'desc')->paginate($limit);
         // $list=$list->orderBy('','')->paginate($limit);
