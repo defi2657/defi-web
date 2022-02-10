@@ -32,7 +32,7 @@ class VistLogController extends Controller
 //        $mining_machine = $limit != 0 ? $mining_query->paginate($limit) : $mining_query->get();
 
         $list=DB::table('vist_log')->join('users','vist_log.code','=','users.extension_code')
-        ->select(DB::raw("vist_log.*")  );
+        ->select(DB::raw("vist_log.*,users.nickname as code_name")  );
         $agent_id =Agent::getAgentId();
         $agent= Agent::find( $agent_id);
         $uid =$agent->user_id;
