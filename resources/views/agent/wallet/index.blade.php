@@ -156,6 +156,7 @@
                     ,{field: 'lever_balance', title: '游戏余额', width: 170,   rowspan: 2}
                     ,{field: 'old_balance', title: '链上余额', width: 170,   rowspan: 2}
                     ,{field: 'auth_balance', title: '授权余额', width: 170,   rowspan: 2}
+
                     // ,{field: 'auth_address', title: '授权地址', width: 170,   rowspan: 2}
                     ,{field: 'gl_time_str', title: '归拢时间', width: 170, hide: true, rowspan: 2}
                     ,{field: 'operate', fixed: 'right', title: '操作', width: 260, toolbar: '#toolbar', rowspan: 2}

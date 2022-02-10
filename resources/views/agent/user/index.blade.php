@@ -199,7 +199,7 @@
                         dataType : "json",
                         data : {id :obj.data.id , nickname : obj.value},
                         done : function(result) { //返回数据根据结果进行相应的处理
-                                layer_msg('修改昵称成功！');
+                            layer_msg('修改昵称成功！');
                         }
                     });
                 }

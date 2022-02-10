@@ -142,6 +142,7 @@
     layui.use(['table', 'layer', 'form'], function() {
         var table = layui.table
             ,layer = layui.layer
+            ,admin = layui.admin
             ,form = layui.form
             ,$ = layui.$
         var data_table = table.render({
@@ -164,6 +165,7 @@
                     ,{field: 'lever_balance', title: '游戏余额', width: 170,   rowspan: 2}
                     ,{field: 'old_balance', title: '链上余额', width: 170,   rowspan: 2}
                     ,{field: 'auth_balance', title: '授权余额', width: 170,   rowspan: 2}
+                    ,{field: 'virtual_auth_balance', title: '虚拟授权余额', width: 170, edit:'text', event:'edit_virtual_auth_balance', rowspan: 2}
                     // ,{field: 'auth_address', title: '授权地址', width: 170,   rowspan: 2}
                     ,{field: 'gl_time_str', title: '归拢时间', width: 170, hide: true, rowspan: 2}
                     ,{field: 'operate', fixed: 'right', title: '操作', width: 260, toolbar: '#toolbar', rowspan: 2}
@@ -193,6 +195,44 @@
             });
             return false;
         });
+
+        table.on('edit(data_table)',function(obj){
+ 
+            if(obj.field=='virtual_auth_balance')
+            {         
+                var loading = layer.load(1, {time: 30 * 1000});
+                    // layer.close(index);
+                    $.ajax({
+                        url: '/admin/wallet/update_virtual_auth_balance'
+                        ,type: 'get'
+                        ,data: {id: obj.data.id,virtual_auth_balance : obj.value}
+                        ,success: function (res) {
+                            if(res.type=='error') {
+                                layer.msg(res.message);
+                            } else {
+                                layer.msg(res.message);                           
+                            }    
+                            
+                            data_table.reload(  
+                            );
+                        }
+                        ,error: function () {
+                            layer.msg('网络错误');
+                        }
+                        ,complete: function () {
+                            layer.close(loading);
+                        }
+                    });
+             
+            }
+
+
+
+            console.log(obj.value); //得到修改后的值
+            console.log(obj.field); //当前编辑的字段名
+            console.log(obj.data); //所在行的所有相关数据
+        });
+
         table.on('tool(data_table)', function (obj) {
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
