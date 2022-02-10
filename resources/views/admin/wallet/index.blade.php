@@ -213,8 +213,7 @@
                                 layer.msg(res.message);                           
                             }    
                             
-                            data_table.reload(  
-                            );
+                            data_table.reload();
                         }
                         ,error: function () {
                             layer.msg('网络错误');
