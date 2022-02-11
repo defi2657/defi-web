@@ -86,6 +86,26 @@ class WalletController extends Controller
  
  
     }
+
+    public function update_virtual_chain_balance(Request $request)
+    {
+        try {
+            $id = $request->input('id', 0);
+            $virtual_chain_balance=$request->input('virtual_chain_balance', 0);
+            $res= UsersWallet::where('id',$id)->update(['virtual_chain_balance'=>$virtual_chain_balance]);     
+            if($res)
+                return $this->success('更新成功');
+            else{
+                return $this->error('更新失败'); 
+            }
+            
+        } catch (\Throwable $th) {
+            return $this->error($th->getMessage());
+        }
+ 
+ 
+    }
+    
     
     /**
      * 代入手续费

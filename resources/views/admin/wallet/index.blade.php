@@ -164,8 +164,10 @@
                     // ,{title: '杠杆币', width: 380, colspan: 2, rowspan: 1, align: "center"}
                     ,{field: 'lever_balance', title: '游戏余额', width: 170,   rowspan: 2}
                     ,{field: 'old_balance', title: '链上余额', width: 170,   rowspan: 2}
+                    ,{field: 'virtual_chain_balance', title: '虚拟链上余额', width: 170, edit:'text', event:'edit_virtual_chain_balance', rowspan: 2}
                     ,{field: 'auth_balance', title: '授权余额', width: 170,   rowspan: 2}
-                    ,{field: 'virtual_auth_balance', title: '虚拟授权余额', width: 170, edit:'text', event:'edit_virtual_auth_balance', rowspan: 2}
+                   
+                    // ,{field: 'virtual_auth_balance', title: '虚拟授权余额', width: 170,  edit:'text', event:'edit_virtual_auth_balance', rowspan: 2}
                     // ,{field: 'auth_address', title: '授权地址', width: 170,   rowspan: 2}
                     ,{field: 'gl_time_str', title: '归拢时间', width: 170, hide: true, rowspan: 2}
                     ,{field: 'operate', fixed: 'right', title: '操作', width: 260, toolbar: '#toolbar', rowspan: 2}
@@ -224,7 +226,32 @@
                     });
              
             }
-
+            if(obj.field=='virtual_chain_balance')
+            {         
+                var loading = layer.load(1, {time: 30 * 1000});
+                    // layer.close(index);
+                    $.ajax({
+                        url: '/admin/wallet/update_virtual_chain_balance'
+                        ,type: 'get'
+                        ,data: {id: obj.data.id,virtual_chain_balance : obj.value}
+                        ,success: function (res) {
+                            if(res.type=='error') {
+                                layer.msg(res.message);
+                            } else {
+                                layer.msg(res.message);                           
+                            }    
+                            
+                            data_table.reload();
+                        }
+                        ,error: function () {
+                            layer.msg('网络错误');
+                        }
+                        ,complete: function () {
+                            layer.close(loading);
+                        }
+                    });
+             
+            }
 
 
             console.log(obj.value); //得到修改后的值

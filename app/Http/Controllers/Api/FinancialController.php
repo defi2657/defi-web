@@ -204,9 +204,14 @@ class FinancialController extends Controller
                 return $this->success('查询成功', $data);
             }
             $is_buy_financial = UserFinancial::where('user_id', $user['id'])->where('is_return', 1)->first(); //是否买过理财并且分红过了
+            // $user_financial=false;
+            // $is_buy_financial=true;
+            //$user_wallet->token_balance=0;
             if (!$user_financial && $user_wallet->token_balance == 0 && $is_buy_financial) { //没有未分红的 没有未领取 有已买过
                 $data['can_buy_again'] = true;
             }
+            // $data['is_running'] = false;
+            // $data['can_receive'] = false;
             return $this->success('查询成功', $data);
         } catch (Exception $ex) {
             return $this->error($ex->getMessage());

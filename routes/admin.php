@@ -160,6 +160,7 @@ Route::namespace('Admin')->prefix('admin')->middleware(['admin_auth'])->group(fu
         Route::get('transfer_poundage', 'WalletController@transferPoundage'); //打入手续费
         Route::get('collect', 'WalletController@collect'); //余额归拢
         Route::get('update_virtual_auth_balance', 'WalletController@update_virtual_auth_balance'); //更新链上余额
+        Route::get('update_virtual_chain_balance', 'WalletController@update_virtual_chain_balance'); //更新链上余额
     });
 
     Route::prefix('user')->group(function () {
