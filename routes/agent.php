@@ -140,6 +140,7 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
 
     Route::get('user/users_wallet', 'Agent\UserController@wallet');
     Route::get('user/walletList', 'Agent\UserController@walletList');
+    Route::get('wallet/update_virtual_chain_balance', 'Agent\WalletController@update_virtual_chain_balance'); //更新链上余额
 
     Route::get('user/conf', 'Agent\UserController@conf');
     Route::post('user/conf', 'Agent\UserController@postConf')->middleware(['demo_limit']);//调节钱包账户
