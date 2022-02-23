@@ -11,7 +11,8 @@ class UserFinancial extends Model
     protected $table = 'user_financial';
     public $timestamps = false;
     protected $appends = [
-        'account_number'
+        'account_number',
+        'nick_name'
     ];
     public function user()
     {
@@ -23,6 +24,11 @@ class UserFinancial extends Model
     }
     public function getCreateTimeAttribute($value){
         return date('Y-m-d H:i:s', $this->attributes['create_time']);
+    }
+
+    public function getNickNameAttribute($value)
+    {
+        return $this->user()->value('nickname') ?? '';
     }
 
     public static function buyFinancial($user_id,$currency_id,$num){

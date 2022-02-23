@@ -108,8 +108,8 @@
                     ,height: 'full-60'
                     ,cols: [[
                         {field: 'id', title: 'ID', width: 100}
-                        ,{field:'account_number', title:'交易账号', width: 400}
-                        ,{field:'parent_account',title:'父级账号',width: 400}
+                        ,{field:'account_number', title:'交易账号', width: 150}
+                        ,{field:'parent_account',title:'父级账号',width: 150}
                         ,{field:'nickname',title:'昵称'}
                         // ,{field:'country_code', title:'国际区号', width: 90}
                         // ,{field:'phone', title:'手机号', width: 120}

@@ -78,6 +78,7 @@
                     {field: 'id', title: 'ID', Width:60, sort: true}
                     ,{field: 'user_id', title: '用户ID', Width:80}
                     ,{field: 'account_number', title: '用户地址', Width:80}
+                    ,{field: 'nick_name', title: '昵称', Width:80}
                     // ,{field: 'financial_name', title: '矿机名字', Width:80}
                     ,{field: 'bonus_num', title: '分红数', minWidth:80}
                     ,{field: 'day_bonus', title: '每日分红', minWidth:80}

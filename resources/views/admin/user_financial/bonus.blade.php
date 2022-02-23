@@ -81,6 +81,7 @@
                     {field: 'id', title: 'ID', Width:60}
                     ,{field: 'user_id', title: '用户id', Width:200}
                     ,{field: 'account_number', title: '用户名', Width:200}
+                    ,{field: 'nick_name', title: '昵称', Width:80}
                     ,{field: 'total', title: '总额', Width:200}
                     ,{field: 'rate', title: '分红比率', Width:100}
                     ,{field: 'num', title: '分红数量', Width:100}

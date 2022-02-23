@@ -122,11 +122,11 @@
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 理财管理</span>
                             </a> -->
-                            <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial',icon:'&#xe770;',title:'用户矿机',id:'user_financial'}">
+                            <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial',icon:'&#xe770;',title:'用户理财',id:'user_financial'}">
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 用户理财</span>
                             </a>
-                            <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial/bonus',icon:'&#xe770;',title:'矿机分红',id:'bonus'}">
+                            <a href="javascript:;" kit-target data-options="{url:'/admin/user_financial/bonus',icon:'&#xe770;',title:'理财分红',id:'bonus'}">
                                 <i class="layui-icon">&#xe770;</i>
                                 <span> 理财分红</span>
                             </a>

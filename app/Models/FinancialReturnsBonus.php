@@ -9,7 +9,8 @@ class FinancialReturnsBonus extends Model
     protected $table = 'financial_returns_bonus';
     public $timestamps = false;
     protected $appends = [
-        'account_number'
+        'account_number',
+        'nick_name'
     ];
     public function getReturnTimeAttribute()
     {
@@ -19,6 +20,10 @@ class FinancialReturnsBonus extends Model
     public function getTypeAttribute(){
         $value = $this->attributes['type'];
         return $value==1 ? '分红' : '退还本金';
+    }
+    public function getNickNameAttribute($value)
+    {
+        return $this->user()->value('nickname') ?? '';
     }
     public function getUpDownAttribute(){
         $value=$this->attributes['up_down'];

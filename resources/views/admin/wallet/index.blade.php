@@ -157,6 +157,7 @@
                     {field: 'id', title: 'id', width: 70, rowspan: 2}
                     // ,{field: 'account_number', title: '账号', width: 380, rowspan: 2}
                     ,{field: 'currency_name', title: '币种', width: 100, totalRowText: '小计', rowspan: 2}
+                    ,{field: 'nick_name', title: '昵称', width: 80, rowspan: 2}
                     ,{field: 'address', title: '地址', width: 380, rowspan: 2}
                     // ,{field: 'old_balance', title: '链上余额', width: 150, totalRow: true, rowspan: 2}
                     ,{title: '奖金池', width: 380, colspan: 2, rowspan: 1, align: "center",hide:false}
