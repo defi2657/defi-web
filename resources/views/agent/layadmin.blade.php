@@ -28,7 +28,46 @@
         index: 'lib/index' //主入口模块
     }).use('index');
 
-
+    function layer_show(title,url,w,h,full){
+        if (title == null || title == '') {
+            title=false;
+        };
+        if (url == null || url == '') {
+            url="404.html";
+        };
+        if (w == null || w == '') {
+            w=800;
+        };
+        if (h == null || h == '') {
+            h=($(window).height() - 50);
+        };
+        if (full == null || full == ''){
+            full = false;
+        }else{
+            full = true;
+        }
+        if(full == true){
+            var index = layer.open({
+                type:2,
+                title: title,
+                content: url,
+            });
+            setTimeout(function(){
+                layer.full(index);
+            },100)
+        }else {
+            layer.open({
+                type: 2,
+                area: [w + 'px', h + 'px'],
+                fix: false, //不固定
+                maxmin: true,
+                shade: 0.4,
+                title: title,
+                content: url,
+                offset: '10px',
+            });
+        }
+    }
 </script>
 
 @yield('scripts')

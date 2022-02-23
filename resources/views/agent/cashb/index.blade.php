@@ -179,7 +179,7 @@
                 	,{field: 'txid_status', title: '链上状态', width: 120, templet: '#txid_statustml'}
                 		,{field: 'errmsg', title: '异常信息', width: 120}
                     ,{field: 'create_time', title: '提币时间', width:180}
-                    // ,{title:'操作', width:120, toolbar: '#barDemo',fixed: 'right'}
+                    ,{title:'操作', width:120, toolbar: '#barDemo',fixed: 'right'}
 
                 ]] , done: function(res){
                     $("#sum").text(res.extra_data);
@@ -188,7 +188,28 @@
 
             table.on('tool(test)', function(obj){
                 var data = obj.data;
-         
+                if(obj.event === 'del'){
+                    layer.confirm('真的删除行么', function(index){
+                        $.ajax({
+                            url:'{{url('agent/cashb_show')}}',
+                            type:'post',
+                            dataType:'json',
+                            data:{id:data.id},
+                            success:function (res) {
+                                if(res.type == 'error'){
+                                    layer.msg(res.message);
+                                }else{
+                                    obj.del();
+                                    layer.close(index);
+                                }
+                            }
+                        });
+                    });
+                } else if(obj.event === 'show'){
+                    layer_show('确认提币','{{url('agent/cashb_show')}}?id='+data.id, 900, 640);
+                } else if(obj.event === 'back'){
+                    layer_show('退回申请','{{url('agent/adjust_account')}}?id='+data.id, 900, 640);
+                }
             });
 
             //监听提交

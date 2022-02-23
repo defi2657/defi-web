@@ -93,6 +93,9 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
     Route::group([], function () {
         Route::get('cashb', 'Agent\CashbController@index')->middleware(['demo_limit']);
         Route::get('cashb_list', 'Agent\CashbController@cashbList');
+        // Route::get('cashb_show', 'CashbController@show')->middleware(['demo_limit']);//提币详情页面
+        Route::post('cashb_done', 'Agent\CashbController@done')->middleware(['demo_limit']);//确认提币成功
+        Route::get('cashb_back', 'Agent\CashbController@back')->middleware(['demo_limit']);//执行退回申请
         Route::get('cashb_show', 'Agent\CashbController@show')->middleware(['demo_limit']);//提币详情页面
  
     });

@@ -121,7 +121,7 @@ class CashbController extends Controller
 
         $use_chain_api = Setting::getValueByKey('use_chain_api', 0);
         $type_text = AccountLog::$trade_scene[$walletout->type];
-        return view('admin.cashb.edit', [
+        return view('agent.cashb.edit', [
             'wallet_out' => $walletout,
             'out' => $out,
             'in' => $in,
