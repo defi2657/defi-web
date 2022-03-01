@@ -206,7 +206,7 @@ class MemberController extends Controller
         $is_lock = $request->input("is_lock", 2);
         $is_addson = $request->input("is_addson", 2);
         $parent_agent_id = $request->input("parent_agent_id", 0);
-
+        $limit=$request->input("limit", 10);
         $_self = Agent::getAgent();
 
         if ($_self === null) {
@@ -254,7 +254,7 @@ class MemberController extends Controller
             $where[] = ['parent_agent_id', '=', $_self->id];
         }
 
-        $result = Agent::where('status', 1)->where($where)->paginate(10);
+        $result = Agent::where('status', 1)->where($where)->paginate($limit);
 
         return $this->layuiData($result);
     }
