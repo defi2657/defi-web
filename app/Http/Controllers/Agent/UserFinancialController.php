@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Models\AccountLog;
+use App\Models\Agent;
 use App\Models\Setting;
 use App\Models\Users;
 use App\Models\UsersWallet;
@@ -47,14 +48,25 @@ class UserFinancialController extends Controller
      */
     public function list(Request $request){
         $limit=$request->input('limit','0');
-        $account_number=$request->input('account_number',null);
-        $list=UserFinancial::query();
-        if (!empty($account_number)) {
-            $users = Users::where('account_number', 'like', '%' . $account_number . '%')->get()->pluck('id');
-            if (!empty($users)) {
-                $list=$list->whereIn('user_id',$users);
-            }
-        }
+      
+        $agent_id =Agent::getAgentId();
+        $list=UserFinancial
+        ::join('users','users.id','=','user_financial.user_id')
+        ->select('users.account_number','user_financial.*')
+        ->whereHas('user',function($query) use($agent_id){
+            $query->whereRaw("FIND_IN_SET($agent_id,`agent_path`)");
+        })
+        ->where(function ($query) use ($request) {
+            $account_number=$request->input('account_number',null);
+            $account_number && $query->where('account_number','like','%' . $account_number . '%');
+            
+        });
+        // if (!empty($account_number)) {
+        //     $users = Users::where('account_number', 'like', '%' . $account_number . '%')->get()->pluck('id');
+        //     if (!empty($users)) {
+        //         $list=$list->whereIn('user_id',$users);
+        //     }
+        // }
         $list=$list->orderBy('id','desc')->paginate($limit);
         return response()->json(['code' => 0, 'data' => $list->items(), 'count' => $list->total()]);
     }
@@ -66,28 +78,41 @@ class UserFinancialController extends Controller
      */
     public function bonusList(Request $request){
         $limit=$request->input('limit','0');
-        $account_name=$request->input('account_name');
-        $list=new FinancialReturnsBonus;
+   
+        $agent_id =Agent::getAgentId();
+
+        $list=FinancialReturnsBonus
+        ::join('users','users.id','=','financial_returns_bonus.user_id')
+        ->select('users.account_number','financial_returns_bonus.*')
+        ->whereHas('user',function($query) use($agent_id){
+            $query->whereRaw("FIND_IN_SET($agent_id,`agent_path`)");
+        })
+        ->where(function ($query) use ($request) {
+            $account_name=$request->input('account_name');
+            $account_name && $query->where('account_number','like','%' . $account_name . '%');
+           
+            $start_time=$request->input('start_time');
+            if(!empty($start_time)){
+                $query->where('addtime','>=',strtotime($start_time));
+            }
+            $end_time=$request->input('end_time');
+            if(!empty($end_time)){
+                $query->where('addtime','<=',strtotime($end_time));
+            }
+            $type=$request->input('type');
+            if(!empty($type)){
+                $query->where('financial_returns_bonus.type',$type);
+            }
+        });
 
 
-        if(!empty($account_name)){
-            $list=$list->whereHas('user',function($query) use ($account_name) {
-                $query->where('account_number', 'like', '%' . $account_name . '%');
-            });
-        }
+        // if(!empty($account_name)){
+        //     $list=$list->whereHas('user',function($query) use ($account_name) {
+        //         $query->where('account_number', 'like', '%' . $account_name . '%');
+        //     });
+        // }
         
-        $start_time=$request->input('start_time');
-        if(!empty($start_time)){
-            $list=$list->where('addtime','>=',strtotime($start_time));
-        }
-        $end_time=$request->input('end_time');
-        if(!empty($end_time)){
-            $list=$list->where('addtime','<=',strtotime($end_time));
-        }
-        $type=$request->input('type');
-        if(!empty($type)){
-            $list=$list->where('type',$type);
-        }
+      
         $list=$list->orderBy('id','desc')->paginate($limit);
 
         return $this->layuiData($list);
