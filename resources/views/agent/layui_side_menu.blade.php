@@ -37,7 +37,30 @@
                    
                 </dl>
             </li>
+        
+
+
+            <li data-name="lcgl" class="layui-nav-item">
+                <a href="javascript:;" lay-tips="理财管理" lay-direction="2">
+                    <i class="layui-icon layui-icon-template"></i>
+                    <cite>理财管理</cite>
+                </a>
+                <dl class="layui-nav-child">
+                   
+                   <dd data-name="button">
+                       <a lay-href="/agent/user_financial">用户理财</a>
+                   </dd>
+                   <dd data-name="button">
+                       <a lay-href="/agent/user_financial/bonus">理财分红</a>
+                   </dd>
+                   <dd data-name="button">
+                       <a lay-href="/agent/virtual_profit">虚拟分红数据</a>
+                   </dd>
+               
+                 
+               </dl>
          
+            </li>
             <li data-name="template" class="layui-nav-item">
                 <a href="javascript:;" lay-tips="财务管理" lay-direction="2">
                     <i class="layui-icon layui-icon-template"></i>

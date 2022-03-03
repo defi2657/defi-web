@@ -19,6 +19,43 @@ Route::any('agent/dojie', 'Agent\ReportController@dojie');//阶段订单图表
 //管理后台
 Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () {
 
+    Route::group([],function(){
+        Route::get('/virtual_profit','Agent\VirtualProfitController@index')->middleware(['demo_limit']);//虚拟分红数据
+        Route::get('/virtual_profit/add','Agent\VirtualProfitController@add');//虚拟分红数据
+        Route::post('/virtual_profit/add','Agent\VirtualProfitController@postAdd');//虚拟分红数据
+        Route::get('/virtual_profit/list','Agent\VirtualProfitController@lists');
+        Route::post('/virtual_profit/del','Agent\VirtualProfitController@del');
+ 
+    });
+    Route::group([],function(){
+        Route::get('/user_financial','Agent\UserFinancialController@index')->middleware(['demo_limit']);//理财
+        Route::get('/user_financial/bonus','Agent\UserFinancialController@bonusIndex')->middleware(['demo_limit']);//矿机分红
+        Route::get('/user_financial/bonusdetail','Agent\UserFinancialController@bonusdetail')->middleware(['demo_limit']);//矿机详情
+        Route::get('/user_financial/financial_user_bonus','Agent\UserFinancialController@financial_user_bonus')->middleware(['demo_limit']);
+        Route::get('/user_financial/invite_user','Agent\UserFinancialController@invite_user');
+        Route::get('/user_financial/invite_user_list','Agent\UserFinancialController@invite_user_list')->middleware(['demo_limit']);
+        Route::get('/user_financial/list','Agent\UserFinancialController@list');
+        Route::get('/user_financial/bonusList','Agent\UserFinancialController@bonusList');
+        Route::get('/user_financial/userBonusList','Agent\UserFinancialController@userBonusList');
+        Route::get('/user_financial/acceleration','Agent\UserFinancialController@acceleration');
+        Route::get('/user_financial/financialUserBonusList','Agent\UserFinancialController@financialUserBonusList');
+    });
+
+    Route::group([],function(){
+        Route::get('/user_mining','Agent\UserMiningController@index')->middleware(['demo_limit']);//用户矿机
+        Route::get('/user_mining/bonus','Agent\UserMiningController@bonusIndex')->middleware(['demo_limit']);//矿机分红
+        Route::get('/user_minig/bonusdetail','Agent\UserMiningController@bonusdetail')->middleware(['demo_limit']);//矿机详情
+        Route::get('/user_mining/mining_user_bonus','Agent\UserMiningController@mining_user_bonus')->middleware(['demo_limit']);
+        Route::get('/user_mining/invite_user','Agent\UserMiningController@invite_user');
+        Route::get('/user_mining/invite_user_list','Agent\UserMiningController@invite_user_list')->middleware(['demo_limit']);
+        Route::get('/user_mining/list','Agent\UserMiningController@list');
+        Route::get('/user_mining/bonusList','Agent\UserMiningController@bonusList');
+        Route::get('/user_mining/userBonusList','Agent\UserMiningController@userBonusList');
+        Route::get('/user_mining/acceleration','Agent\UserMiningController@acceleration');
+        Route::get('/user_mining/miningUserBonusList','Agent\UserMiningController@miningUserBonusList');
+    });
+
+
     //========================new！！！==================
     Route::get('home', 'Agent\ReportController@home');//主页
     Route::get('user/index', 'Agent\UserController@index');//用户管理列表

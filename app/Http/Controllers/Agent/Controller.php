@@ -28,6 +28,8 @@ class Controller extends BaseController {
      */
     public function success($msg = ''){
         $result = array(
+            'type'=>'ok',
+            'message'=>$msg,
             'code' => 0,  //0成功，1失败，1001未登录
             'msg' => $msg,   //提示信息
             'data' => []    //数据或其它信息
