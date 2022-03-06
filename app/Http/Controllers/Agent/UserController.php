@@ -303,7 +303,12 @@ class UserController extends Controller
     public function salesmenAdd()
     {
         $data = request()->all();
-
+        if(isset($data['id']))
+        {
+            $id=$data['id'];
+            $agent= Agent::where('id',$id)->first();
+            $data['custom_service_link']=$agent['custom_service_link'];
+        }
         return view("agent.salesmen.add", ['d' => $data]);
     }
 
