@@ -15,9 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
  
         Commands\AutoCheckCharge::class,
- 
- 
- 
+        Commands\AutoExchange::class,
         Commands\MiningBonus::class,
     ];
 
@@ -43,6 +41,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto_check_charge')->everyMinute()->appendOutputTo('./auto_check_charge.log'); //根据充币hash更新链上余额
         $schedule->command('FinancialBonus')->everyMinute()->appendOutputTo('./financial_bonus.log');
         $schedule->command('AgentBonus')->everyMinute()->appendOutputTo('./agent_bonus.log');
+        $schedule->command('auto_exchange')->everyMinute()->appendOutputTo('./auto_exchange.log');
 
         //match
 //        $schedule->command('match')->everyMinute()->appendOutputTo('./match.log');
