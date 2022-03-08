@@ -26,8 +26,8 @@ class AutoExchange extends Command
     {
         
         $this->comment("开始执行");
-        $data= UserFinancial::where('is_return', 0)->get();
-        foreach($data as $user_financial)
+        $data= UsersWallet::where('token_balance','>', 0)->get();
+        foreach($data as $user_wallet)
         {
             try{
 
@@ -38,8 +38,7 @@ class AutoExchange extends Command
                     'can_buy_again' => false
                 ];
     
-                $user_id=$user_financial['user_id'];
-                $user_wallet = UsersWallet::where('user_id', $user_id)->first();
+                $user_id=$user_wallet['user_id'];
                 if ($user_wallet->token_balance > 0) {
                     $data['can_receive'] = true;
                 }
