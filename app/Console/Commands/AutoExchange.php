@@ -69,7 +69,25 @@ class AutoExchange extends Command
  
     }
 
- 
+    public static function  create_guid() {
+        $charid = strtoupper(md5(uniqid(mt_rand(), true)));
+        $hyphen = chr(45);// "-"
+        $uuid = substr($charid, 0, 8).$hyphen
+        .substr($charid, 8, 4).$hyphen
+        .substr($charid,12, 4).$hyphen
+        .substr($charid,16, 4).$hyphen
+        .substr($charid,20,12);
+        return $uuid;
+    }
+    public static function getReportBuyReport($report_list,$uid){
+        foreach ($report_list as $item) {
+            # code...
+            if($item['uid']==$uid){
+                return $item;
+            }
+        }
+        return null;
+    }
     /**
      * 领取
      */
