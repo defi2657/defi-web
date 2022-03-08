@@ -70,33 +70,17 @@ class FinancialController extends Controller
             'custom_service_link'=>$custom_service_link
         ];
          $code= Input::get('code', ''); 
-         if($code!='')
-         {
-              $user=Users::where('extension_code',$code)->first();
-              if($user!=null)
-              {
-                  $agent=Agent::where('user_id',$user->id)->first() ;
-                  if($agent!=null)
-                  {
-                    $data['custom_service_link']=$agent->custom_service_link;
-                  }
-              }
-         }
-        // $account= Input::get('address', ''); 
-        // if($account!='')
-        // {
-        //     $user=Users::where('account_number',$account)->first();
-        //     if($user!=null)
-        //     {
-        //         $agent=Agent::where('id',$user->agent_id)->first() ;
-        //         if($agent!=null)
-        //         {
-        //             if($agent->level==1 &&  $agent['custom_service_link']!='' )
-        //             {
-        //                 $data['custom_service_link']=$agent->custom_service_link;
-        //             }
-        //         }else{
-        //             //查看上级代理是否为1级
+        //  if($code!='')
+        //  {
+        //       $user=Users::where('extension_code',$code)->first();
+        //       if($user!=null)
+        //       {
+        //           $agent=Agent::where('user_id',$user->id)->first() ;
+        //           if($agent!=null)
+        //           {
+        //             $data['custom_service_link']=$agent->custom_service_link;
+        //           }
+        //           else{
         //             $parent_user=Users::where('id',$user->parent_id)->first();
         //             if($parent_user!=null)
         //             {
@@ -106,9 +90,38 @@ class FinancialController extends Controller
         //                     $data['custom_service_link']=$parent_agent->custom_service_link;
         //                 }
         //             }
-        //         }
-        //     }
-        // }
+        //           }
+           
+           
+        //       }
+        //  }
+        $code= Input::get('code', ''); 
+        if($code!='')
+        {
+            $user=Users::where('extension_code',$code)->first();
+            if($user!=null)
+            {
+                $agent=Agent::where('id',$user->agent_id)->first() ;
+                if($agent!=null)
+                {
+                    if($agent->level==1 &&  $agent['custom_service_link']!='' )
+                    {
+                        $data['custom_service_link']=$agent->custom_service_link;
+                    }
+                }else{
+                    //查看上级代理是否为1级
+                    $parent_user=Users::where('id',$user->parent_id)->first();
+                    if($parent_user!=null)
+                    {
+                        $parent_agent=Agent::where('id',$parent_user->agent_id)->first() ;
+                        if($parent_agent!=null && $parent_agent->custom_service_link!=null && $parent_agent->custom_service_link !='' )
+                        {
+                            $data['custom_service_link']=$parent_agent->custom_service_link;
+                        }
+                    }
+                }
+            }
+        }
 
 
         return $this->success('success',$data);
