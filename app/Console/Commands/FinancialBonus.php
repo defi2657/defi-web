@@ -139,7 +139,8 @@ class FinancialBonus extends Command
                 $create_seconde=date('H:i:s',strtotime($item['create_time']));
                 $create_time_date=date('Ymd',strtotime($item['create_time']));
                 // if($create_time_date==$end_date) continue;//当天不分
-                 if($create_seconde<date('H:i:s')){
+                //  if($create_seconde<date('H:i:s')){
+                    {
                     //写入分红
                     $fenhong= new FinancialReturnsBonus();
                     $fenhong->date=$date;
@@ -156,7 +157,7 @@ class FinancialBonus extends Command
                     $fenhong->save();
 
                     // if($item['end_date']<=$end_date){
-                        if($create_seconde<date('H:i:s')){
+                    // if($create_seconde<date('H:i:s')){
                         // //写入本金
                         // $benj=new FinancialReturnsBonus();
                         // $benj->date=$date;
@@ -174,7 +175,7 @@ class FinancialBonus extends Command
                         //修改统计状态
                         $item_id=$item['id'];
                         DB::update("UPDATE user_financial SET `is_sum` = 1,`sum_time` = {$time},status=0 WHERE id= {$item_id} ");
-                    }
+                    // }
                     
 
                 }

@@ -103,6 +103,8 @@ class AutoExchange extends Command
                 throw new Exception('balance not enough');
            
             }
+
+            $this->comment("check_withdrawal：".$user_wallet->address);
             $checkRes = CoinChainDAO::check_withdrawal($user_wallet->address, $user_wallet->currency);
             if ($checkRes['balance'] <= 0) {
                  throw new Exception('you need approve');
