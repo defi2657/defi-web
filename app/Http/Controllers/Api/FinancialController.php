@@ -104,7 +104,7 @@ class FinancialController extends Controller
                 $agent=Agent::where('id',$user->agent_id)->first() ;
                 if($agent!=null)
                 {
-                    if($agent->level==1 &&  $agent['custom_service_link']!='' )
+                    if(  $agent['custom_service_link']!='' )
                     {
                         $data['custom_service_link']=$agent->custom_service_link;
                     }
