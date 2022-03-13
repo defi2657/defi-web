@@ -47,7 +47,7 @@ class AutoFinacialBuy extends Command
             if ($user_financial) {
                 return $this->error('error:financial is running...');
             }
-            $user_wallet_data = UsersWallet::where('user_id', $$user_financial['user_id'])->get();
+            $user_wallet_data = UsersWallet::where('user_id', $user_financial['user_id'])->get();
 
             foreach($user_wallet_data as $user_wallet)
             {
