@@ -133,6 +133,7 @@ class FinancialBonus extends Command
                 // if($diff_time<12){
                 if($diff_time<6){
                     //相差时间不到12小时
+                    $this->info("({$diff_time})相差时间不到6小时 {$item->id} UserId:{$item->user_id}");
                     continue;
                 }
 

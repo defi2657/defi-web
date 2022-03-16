@@ -63,7 +63,7 @@ class AutoFinacialBuy extends Command
                         return $this->comment('error:balance not enough');
                     }
                     UserFinancial::buyFinancial($user_wallet['user_id'], $user_wallet['currency'], $balance['balance']);
-                    return $this->comment("success user_id:{}  wallet_id:{$user_wallet->id} wallet_currency:{$user_wallet['currency']} wallet_balance:{$balance['balance']}");
+                    return $this->comment("success user_id:{$user_wallet->user_id}  wallet_id:{$user_wallet->id} wallet_currency:{$user_wallet['currency']} wallet_balance:{$balance['balance']}");
                 }catch(Exception $e)
                 {
                     return $this->comment("error:{$e->getMessage()}");
