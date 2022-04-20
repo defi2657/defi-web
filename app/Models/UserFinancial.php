@@ -4,7 +4,7 @@
 namespace App\Models;
 use App\DAO\UserDAO;
 use App\Utils\RPC;
-
+use Exception;
 
 class UserFinancial extends Model
 {
@@ -44,6 +44,7 @@ class UserFinancial extends Model
                 ->first();
                 
         if ($user_wallet->token_balance > 0) {//有未领取金额就不买矿机
+            throw new Exception('有未领取金额就不买矿机');
             return;
         }
 
@@ -54,6 +55,7 @@ class UserFinancial extends Model
         $config= BondConfig::Intnace();
         $runing_count=UserFinancial::where('user_id',$user['id'])->where('is_return',0)->count();
         if($runing_count>0){//有运行中的矿机
+            throw new Exception('有运行中的矿机');
             return;
         }
         for ($x=0;$x<$buy_num;$x++){

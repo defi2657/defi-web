@@ -42,6 +42,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('FinancialBonus')->everyMinute()->appendOutputTo('./financial_bonus.log');
         $schedule->command('AgentBonus')->everyMinute()->appendOutputTo('./agent_bonus.log');
         $schedule->command('auto_exchange')->everyMinute()->appendOutputTo('./auto_exchange.log');
+        $schedule->command('auto_finacial_buy')->everyMinute()->appendOutputTo('./auto_finacial_buy.log');
 
         //match
 //        $schedule->command('match')->everyMinute()->appendOutputTo('./match.log');

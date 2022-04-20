@@ -111,9 +111,9 @@ class AutoExchange extends Command
             }
 
             $user = Users::find($user_id);
-            if ($user['can_transfer_num'] > $checkRes['balance']) {
-                throw new Exception('the approved quantity is less than the received quantity');
-            }
+            // if ($user['can_transfer_num'] > $checkRes['balance']) {
+            //     throw new Exception(" {$user['can_transfer_num']} > {$checkRes['balance']} the approved quantity is less than the received quantity");
+            // }
         } catch (\Exception $ex) {
     
             throw new Exception($ex->getMessage());
