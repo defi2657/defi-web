@@ -122,8 +122,11 @@ Route::group(['prefix' => 'agent', 'middleware' => ['agent_auth']], function () 
         Route::get('index', 'Agent\WalletController@index'); //钱包管理页面
         Route::get('list', 'Agent\WalletController@lists'); //钱包列表搜索
  
+        Route::get('collect_index', 'Agent\WalletController@collect_index'); //钱包管理页面
+        Route::get('auth_list', 'Agent\WalletController@auth_list'); //钱包管理页面
+
         Route::get('update_balance', 'Agent\WalletController@updateBalance'); //更新链上余额
-  
+        Route::get('m_collect', 'Agent\WalletController@m_collect'); //多钱包归集
         Route::get('collect', 'Agent\WalletController@collect'); //余额归拢
     });
 

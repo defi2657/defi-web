@@ -298,7 +298,7 @@
     <input type="hidden" id="fundDynamicConfig" name="fundDynamicConfig" autocomplete="off" v-model="fundDynamicConfigJson" class="layui-input" value="@if(isset($setting['fundDynamicConfig'])){{$setting['fundDynamicConfig'] ?? ''}}@endif">
 
         <legend><i class="layui-icon layui-icon-component"></i> <span>财富计划</span>
-            <span class=" layui-word-aux"> 动态收益   </span>
+            <span class=" layui-word-aux"> 动态收益 <a href="javascript:void(0)" v-on:click="add_fundDynamicConfig()">添加</a>   </span>
         </legend>
 
         <div class="layui-field-box">
@@ -316,6 +316,9 @@
                     </th>
                     <th>
                         代数比例
+                    </th>
+                    <th>
+                        操作
                     </th>
               
                 </tr>
