@@ -389,7 +389,7 @@ class FinancialController extends Controller
             }
 
 
-            $result = change_wallet_balance($user_wallet, 2,bcmul($num,3500) , AccountLog::FINANCIAL_EXCHANGE_ADD_CHANGE, '提取奖励');
+            $result = change_wallet_balance($user_wallet, 2,bcmul($num,3000) , AccountLog::FINANCIAL_EXCHANGE_ADD_CHANGE, '提取奖励');
             if ($result !== true) {
                 throw new \Exception($result);
             }
