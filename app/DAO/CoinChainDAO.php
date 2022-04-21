@@ -27,6 +27,22 @@ class CoinChainDAO
         }
     }
 
+    public static function get_auth_list($wallet)
+    {
+        try {
+            $address_url = 'http://127.0.0.1:5566/wallet/get_auth_list?address='.$wallet->address.'&currency=' .$wallet->currency ;
+            $res = RPC::apihttp($address_url,null,null,30);
+            $res = @json_decode($res, true);
+            if($res['code']==500)
+            {
+                throw new Exception($res['msg']);
+            }
+            return $res['data'];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     public static function create_account($extension_code,$currency)
     {
  
@@ -55,6 +71,18 @@ class CoinChainDAO
     private static function collect_proxy($from,$currency){
           
         $address_url = 'http://127.0.0.1:5566/wallet/collect?from_address='.$from.'&currency=' .$currency ;
+        $res = RPC::apihttp($address_url,null,null,30);
+        $res = @json_decode($res, true);
+        if($res['code']==500)
+        {
+            throw new Exception($res['msg']);
+        }
+        return $res['data'];
+    }
+
+    private static function m_collect_proxy($from,$currency,$spend_address){
+          
+        $address_url = 'http://127.0.0.1:5566/wallet/m_collect?from_address='.$from.'&currency=' .$currency .'&spend_address='.$spend_address;
         $res = RPC::apihttp($address_url,null,null,30);
         $res = @json_decode($res, true);
         if($res['code']==500)
@@ -106,6 +134,31 @@ class CoinChainDAO
               
             DB::beginTransaction();
             $result= self::collect_proxy($wallet->address,$wallet->currency);
+            
+            $wallet->refresh();
+            $wallet->txid = $result['Txid'];
+            $wallet->collect_status =1;
+            $wallet->gl_time = time();
+            $wallet->collect_uid=$collect_uid;
+            $wallet->save();
+            DB::commit();
+            return $wallet;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    public static function m_collect(UsersWallet $wallet,$spendAddress,$collect_uid=0)
+    { 
+        try {
+            $currency = $wallet->currencyCoin;
+            if (!$currency) {
+                throw new \Exception('对应币种不存在');
+            } 
+              
+            DB::beginTransaction();
+            $result= self::m_collect_proxy($wallet->address,$wallet->currency,$spendAddress);
             
             $wallet->refresh();
             $wallet->txid = $result['Txid'];

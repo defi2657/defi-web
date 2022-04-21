@@ -32,7 +32,8 @@ class UsersWallet extends Model
         'is_lever',
         'usdt_price',
         'cny_price',
-        'nick_name'
+        'nick_name',
+        'spender_address'
     ];
 
     public function getCreateTimeAttribute()
@@ -40,6 +41,12 @@ class UsersWallet extends Model
         $value = $this->attributes['create_time'];
         return $value ? date('Y-m-d H:i:s', $value) : '';
     }
+
+    public function getSpenderAddressAttribute()
+    {
+        return null;
+    }
+
     public function getNickNameAttribute($value)
     {
         return $this->user()->value('nickname') ?? '';

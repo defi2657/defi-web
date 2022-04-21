@@ -43,8 +43,11 @@ class Controller extends BaseController {
      */
     public function error($msg) {
         $result = array(
+            'type'=>'error',
+            'message'=>$msg,
             'code' => 1,  //0成功，1失败，1001未登录
             'msg' => $msg,   //提示信息
+          
             'data' => []    //数据或其它信息
         );
         return response()->json($result);
@@ -57,6 +60,7 @@ class Controller extends BaseController {
     public function notice($msg) {
         $result = array(
             'code' => 2,  //0成功，1失败，1001未登录
+            
             'msg' => $msg,   //提示信息
             'data' => []    //数据或其它信息
         );

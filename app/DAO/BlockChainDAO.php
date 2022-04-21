@@ -48,7 +48,18 @@ class BlockChainDAO
             throw $th;
         }
     }
-
+    public static function get_auth_list($wallet)
+    {
+        try {
+            
+    
+            $result = CoinChainDAO::get_auth_list($wallet);
+       
+            return $result;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     public static function updateWalletBalance($wallet)
     {
         try {

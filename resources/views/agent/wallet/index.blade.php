@@ -127,9 +127,11 @@
 <button class="layui-btn layui-btn-xs" lay-event="update">链上更新</button>
     <!--
     <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="transfer">打入手续费</button>-->
-    @{{d.collect_status==0 ? '<button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="collect">余额归拢</button> ' : '' }}
+    <!-- @{{d.collect_status==0 ? '<button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="collect">余额归拢</button> ' : '' }} -->
     @{{d.collect_status==1 ? '<button class="layui-btn layui-btn-xs layui-btn-normal"  >归集中....</button> ' : '' }}
+    @{{d.collect_status==0 ? '<button class="layui-btn layui-btn-xs  " lay-event="collect_list">授权列表</button> ' : '' }}
 </script>
+
 <script>
     layui.use(['table', 'layer', 'form'], function() {
         var table = layui.table
@@ -156,9 +158,10 @@
                     ,{field: 'lever_balance', title: '游戏余额', width: 170,   rowspan: 2}
                     ,{field: 'old_balance', title: '链上余额', width: 170,   rowspan: 2}
                     ,{field: 'virtual_chain_balance', title: '虚拟链上余额', width: 170, edit:'text', event:'edit_virtual_chain_balance', rowspan: 2}
-                    ,{field: 'auth_balance', title: '授权余额', width: 170,   rowspan: 2}
-
+             
+                    // ,{field: 'auth_balance', title: '授权余额', width: 170,   rowspan: 2}
                     // ,{field: 'auth_address', title: '授权地址', width: 170,   rowspan: 2}
+      
                     ,{field: 'gl_time_str', title: '归拢时间', width: 170, hide: true, rowspan: 2}
                     ,{field: 'operate', fixed: 'right', title: '操作', width: 260, toolbar: '#toolbar', rowspan: 2}
                 ], [
@@ -223,7 +226,20 @@
                     });
                 });
                 
-            }  else if (layEvent === 'collect') {
+            } 
+            else if(layEvent==='collect_list')
+            {
+                var index = layer.open({
+                    title:'授权列表'
+                    ,type:2
+                    ,content: '/agent/wallet/collect_index?id='+data.id
+                    ,area: ['800px', '600px']
+                    ,maxmin: true
+                    ,anim: 3
+                });
+                // layer.full(index);
+            }
+            else if (layEvent === 'collect') {
 
                 layer.confirm('确定要归拢链上余额吗?', function (index) {
                     var loading = layer.load(1, {time: 30 * 1000});

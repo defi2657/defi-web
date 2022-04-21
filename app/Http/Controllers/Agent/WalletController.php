@@ -8,6 +8,7 @@ USE App\DAO\BlockChainDAO;
 USE App\DAO\CoinChainDAO;
 use App\Jobs\UpdateBalance;
 use App\Models\{Agent, Currency, UsersWallet};
+use Illuminate\Support\Facades\Input;
 
 class WalletController extends Controller
 {
@@ -17,6 +18,27 @@ class WalletController extends Controller
         return view('agent.wallet.index', ['currencies' => $currencies]);
     }
     
+    public function collect_index(Request $request)
+    {         
+        return view('agent.wallet.collect_index',['id'=>$request->input('id', 0)]);
+    }
+
+    public function auth_list(Request $request)
+    {         
+     
+        $id = $request->input('id', 0);
+        $wallet = UsersWallet::find($id);
+         
+        $list=BlockChainDAO::get_auth_list($wallet );
+
+        foreach($list as &$item)
+        {
+            $item['collect_status']=$wallet['collect_status'];
+        }
+
+        return response()->json(['code' => 0, 'data' => $list, 'count' => 0]);
+    }
+
     public function update_virtual_chain_balance(Request $request)
     {
         try {
@@ -93,21 +115,17 @@ class WalletController extends Controller
 
  
 
-    /**
-     * 钱包归拢
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function collect(Request $request)
+    public function m_collect(Request $request)
     {
         $id = $request->input('id', 0);
+   
+        $spendAddress=Input::get('spendAddress');
         $refresh_balance = $request->input('refresh_balance', 0);
         try {
             $wallet = UsersWallet::find($id);
             throw_unless($wallet, new \Exception('钱包不存在'));
             throw_if($wallet->collect_status==1,new \Exception('正在归集中，请勿重复点击')) ;
-            $result = CoinChainDAO::collect($wallet, $refresh_balance);
+            $result = CoinChainDAO::m_collect($wallet,$spendAddress, $refresh_balance);
             return $this->success('请求成功,HASH:' . $result['txid']);
         } catch (\Throwable $th) {
             return $this->error($th->getMessage());
