@@ -176,7 +176,14 @@
     </div>
  
 </div>
-
+<div class="layui-form-item">
+    <label class="layui-form-label">USDT汇率</label>
+    <div class="layui-input-inline">
+        <input type="text" name="usdt_rate" autocomplete="off" class="layui-input"
+            value="@if(isset($setting['usdt_rate'])){{$setting['usdt_rate']}}@endif">
+    </div>
+ 
+</div>
 <!-- 
 <div class="layui-form-item">
     <label class="layui-form-label">提币时使用链上接口</label>

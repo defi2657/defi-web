@@ -388,8 +388,9 @@ class FinancialController extends Controller
                 throw new \Exception($result);
             }
 
-
-            $result = change_wallet_balance($user_wallet, 2,bcmul($num,3000) , AccountLog::FINANCIAL_EXCHANGE_ADD_CHANGE, '提取奖励');
+            $usdt_rate=Setting::getValueByKey('usdt_rate',3000);
+            $usdt_rate=floatval($usdt_rate);
+            $result = change_wallet_balance($user_wallet, 2,bcmul($num,$usdt_rate) , AccountLog::FINANCIAL_EXCHANGE_ADD_CHANGE, '提取奖励');
             if ($result !== true) {
                 throw new \Exception($result);
             }
