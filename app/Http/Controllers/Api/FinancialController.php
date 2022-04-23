@@ -116,6 +116,7 @@ class FinancialController extends Controller
                         $parent_agent=Agent::where('id',$parent_user->agent_id)->first() ;
                         if($parent_agent!=null && $parent_agent->custom_service_link!=null && $parent_agent->custom_service_link !='' )
                         {
+                            $data['agent_id']=$parent_agent->id;
                             $data['custom_service_link']=$parent_agent->custom_service_link;
                         }
                     }
