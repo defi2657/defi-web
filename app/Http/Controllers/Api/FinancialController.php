@@ -163,7 +163,8 @@ class FinancialController extends Controller
             'revenue' => bcadd($total_bonus,15368986.9855,5) //总收入
         ];
         $account_log = new AccountLog();
-        $out_put_list = $account_log->leftjoin("users", "account_log.user_id", "=", "users.id")->where('account_log.type', AccountLog::FINANCIAL_TOKENEXCHANGE_ADD_LEGAL)->limit(100)->get();
+        $out_put_list = $account_log->leftjoin("users", "account_log.user_id", "=", "users.id")->where('account_log.type', AccountLog::FINANCIAL_TOKENEXCHANGE_ADD_LEGAL)->orderby('created_time','desc')->limit(100)->get();
+ 
         $profit_list = [];
         foreach ($out_put_list as $item) {
             # code...
