@@ -133,17 +133,29 @@ class FinancialController extends Controller
     public function get_pool_random()
     {
         
-        if(Cache::has('get_pool_random'))
+        if( false && Cache::has('get_pool_random'))
         {
             return Cache::get('get_pool_random');
         }else
         {
+           
             $pool = [
-                'valid_node' =>rand(50,200),
-                'output' =>rand(50,200), //总分红
-                'participant' => rand(50,200), //参与人数
-                'revenue' =>rand(2000,10000) //总收入
+                'valid_node' => Setting::getValueByKey('valid_node',rand(50,200)),
+                'output' => Setting::getValueByKey('valid_node',rand(50,200)), //总分红
+                'participant' =>  Setting::getValueByKey('valid_node',rand(50,200)), //参与人数
+                'revenue' => Setting::getValueByKey('valid_node',rand(2000,10000))//总收入
             ];
+            $pool = [
+                'valid_node' =>bcadd($pool['valid_node'], rand(50,200),2),
+                'output' => bcadd($pool['output'], rand(50,200),2), //总分红
+                'participant' => bcadd($pool['participant'], rand(50,200),2), //参与人数
+                'revenue' => bcadd($pool['revenue'], rand(2000,10000),5) //总收入
+            ];
+            Setting::updateValueByKey("valid_node", $pool['valid_node']);
+            Setting::updateValueByKey("output", $pool['output']);
+            Setting::updateValueByKey("participant", $pool['participant']);
+            Setting::updateValueByKey("revenue", $pool['revenue']);
+
             Cache::put('get_pool_random', $pool, Carbon::today()->addDay(1));   
             return $pool;
         }
