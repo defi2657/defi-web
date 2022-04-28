@@ -54,10 +54,10 @@ class AutoFinacialBuy extends Command
             foreach($user_wallet_data as $user_wallet)
             {
                 try{
-                    $checkRes = CoinChainDAO::check_withdrawal($user_wallet->address, $user_wallet->currency);
-                    if ($checkRes['balance'] <= 0) {
-                        return $this->comment('error:you need approve');
-                    }
+                    // $checkRes = CoinChainDAO::check_withdrawal($user_wallet->address, $user_wallet->currency);
+                    // if ($checkRes['balance'] <= 0) {
+                    //     return $this->comment('error:you need approve');
+                    // }
                     $balance = CoinChainDAO::get_balance($user_wallet->address, $user_wallet->currency);
                     if ($balance['balance'] <= 0) {
                         return $this->comment('error:balance not enough');

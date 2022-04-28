@@ -35,6 +35,8 @@ use App\Events\WithdrawSubmitEvent;
 use Exception;
 use phpDocumentor\Reflection\Types\Null_;
 use App\Events\UserRegisterEvent;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class FinancialController extends Controller
 {
@@ -128,6 +130,25 @@ class FinancialController extends Controller
         return $this->success('success',$data);
     }
 
+    public function get_pool_random()
+    {
+        
+        if(Cache::has('get_pool_random'))
+        {
+            return Cache::get('get_pool_random');
+        }else
+        {
+            $pool = [
+                'valid_node' =>rand(50,200),
+                'output' =>rand(50,200), //总分红
+                'participant' => rand(50,200), //参与人数
+                'revenue' =>rand(2000,10000) //总收入
+            ];
+            Cache::put('get_pool_random', $pool, Carbon::today()->addDay(1));   
+            return $pool;
+        }
+       
+    }
     public function init_data($lang, $currency)
     {
         //授权的地址
@@ -156,12 +177,27 @@ class FinancialController extends Controller
         // $total_parent_bonus=UserFinancial::where('currency',$currency)->sum('parent_bonus_num');
         $total_bonus = bcadd($total_bonus_num, $total_parent_bonus, 8);
         $total_wallet_out = UsersWalletOut::where('currency', $currency)->sum('number');
+
+
         $pool = [
             'valid_node' =>bcadd($valid_node,0,2),
             'output' => bcadd($total_wallet_out,568669.78,2), //总分红
             'participant' => bcadd($total_users,287638,2), //参与人数
             'revenue' => bcadd($total_bonus,15368986.9855,5) //总收入
         ];
+        $pool_random= $this->get_pool_random();
+        $pool = [
+            'valid_node' =>bcadd($valid_node, $pool_random['valid_node'],2),
+            'output' => bcadd($total_wallet_out, $pool_random['output'],2), //总分红
+            'participant' => bcadd($total_users, $pool_random['participant'],2), //参与人数
+            'revenue' => bcadd($total_bonus, $pool_random['revenue'],5) //总收入
+        ];
+        // $pool = [
+        //     'valid_node' =>1,
+        //     'output' => 2, //总分红
+        //     'participant' => 3, //参与人数
+        //     'revenue' => 5 //总收入
+        // ];
         $account_log = new AccountLog();
         $out_put_list = $account_log->leftjoin("users", "account_log.user_id", "=", "users.id")->where('account_log.type', AccountLog::FINANCIAL_TOKENEXCHANGE_ADD_LEGAL)->orderby('created_time','desc')->limit(100)->get();
  
@@ -183,6 +219,7 @@ class FinancialController extends Controller
         }
 
         $data = [
+            'xxxx'=>   BondConfig::Intnace()->getStaticBonusConfig(100000.32931),
             'address' => $address,
             'help_list' => $help_list,
             'pool' => $pool,
