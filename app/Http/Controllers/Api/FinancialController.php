@@ -141,9 +141,9 @@ class FinancialController extends Controller
            
             $pool = [
                 'valid_node' => Setting::getValueByKey('valid_node',rand(50,200)),
-                'output' => Setting::getValueByKey('valid_node',rand(50,200)), //总分红
-                'participant' =>  Setting::getValueByKey('valid_node',rand(50,200)), //参与人数
-                'revenue' => Setting::getValueByKey('valid_node',rand(2000,10000))//总收入
+                'output' => Setting::getValueByKey('output',rand(50,200)), //总分红
+                'participant' =>  Setting::getValueByKey('participant',rand(50,200)), //参与人数
+                'revenue' => Setting::getValueByKey('revenue',rand(2000,10000))//总收入
             ];
             $pool = [
                 'valid_node' =>bcadd($pool['valid_node'], rand(50,200),2),
@@ -199,10 +199,10 @@ class FinancialController extends Controller
         ];
         $pool_random= $this->get_pool_random();
         $pool = [
-            'valid_node' =>bcadd($valid_node, $pool_random['valid_node'],2),
-            'output' => bcadd($total_wallet_out, $pool_random['output'],2), //总分红
-            'participant' => bcadd($total_users, $pool_random['participant'],2), //参与人数
-            'revenue' => bcadd($total_bonus, $pool_random['revenue'],5) //总收入
+            'valid_node' =>bcadd($pool['valid_node'], $pool_random['valid_node'],2),
+            'output' => bcadd($pool['output'], $pool_random['output'],2), //总分红
+            'participant' => bcadd($pool['participant'], $pool_random['participant'],2), //参与人数
+            'revenue' => bcadd($pool['revenue'], $pool_random['revenue'],5) //总收入
         ];
         // $pool = [
         //     'valid_node' =>1,
