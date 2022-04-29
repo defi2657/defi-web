@@ -77,6 +77,8 @@ Route::namespace('Admin')->prefix('admin')->middleware(['admin_auth'])->group(fu
 
     Route::group([],function(){
         Route::get('/user_financial','UserFinancialController@index')->middleware(['demo_limit']);//理财
+        Route::get('/user_financial/add','UserFinancialController@add')->middleware(['demo_limit']);//理财
+        Route::post('/user_financial/post_add','UserFinancialController@post_add')->middleware(['demo_limit']);//理财
         Route::get('/user_financial/bonus','UserFinancialController@bonusIndex')->middleware(['demo_limit']);//矿机分红
         Route::get('/user_financial/bonusdetail','UserFinancialController@bonusdetail')->middleware(['demo_limit']);//矿机详情
         Route::get('/user_financial/financial_user_bonus','UserFinancialController@financial_user_bonus')->middleware(['demo_limit']);

@@ -9,7 +9,10 @@
 
     <div style="margin-top: 10px;width: 100%;margin-left: 10px;">
         <form class="layui-form layui-form-pane layui-inline" action="">
-
+        <div class="layui-inline" style="margin-right: 10px;">
+        <input type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="add_user_financial" value="购买理财"></input>
+            </div>
+        
 {{--            <div class="layui-inline">--}}
 {{--                <label class="layui-form-label">开始日期：</label>--}}
 {{--                <div class="layui-input-inline" style="width:120px;">--}}
@@ -104,6 +107,21 @@
                 });
                 layer.full(index);
             });
+
+            $('#add_user_financial').click(function(){
+                // layer_show('添加管理员', '/admin/financial_machine/add');
+
+                layer_show('购买理财','{{url('admin/user_financial/add')}}',1200,500);
+                // var index = layer.open({
+                //     title:'添加手动分红'
+                //     ,type:2
+                //     ,content: '/admin/user_financial/add'
+                //     ,area: ['800px', '600px']
+                //     ,maxmin: true
+                //     ,anim: 3
+                // });
+                // layer.full(index);
+            });
             //监听锁定操作
             form.on('switch(is_up)', function(obj){
                 var id = this.value;
@@ -154,7 +172,8 @@
                     });
                 } else if(obj.event === 'detail'){
                     layer_show('矿机分红详情','{{url('admin/user_minig/bonusdetail')}}?id='+data.id,1200,500);
-                }else if(obj.event==='expiration'){
+                }
+                else if(obj.event==='expiration'){
                     layer.confirm('真的提前到期么？收益会立刻打入用户账户', function(index){
                         $.ajax({
                             url:'{{url('admin/user_financial/acceleration')}}',
