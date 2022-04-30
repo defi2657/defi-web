@@ -73,12 +73,13 @@ class UserFinancialController extends Controller
             $validator = Validator::make($request->all(), [
                 'user_id' => 'required|integer',
                 'currency_id' => 'required|integer',
-                'balance' => 'required|numeric',
+                'balance' => 'required|numeric|between:1,10000000000000000000000000',
             ], $messages);
 
             if ($validator->fails()) {
                 throw new Exception($validator->errors()->first());
             }
+
 
             $input = Input::only('user_id', 'currency_id', 'balance');
             $data = UserFinancial::where(['user_id' => $input['user_id'], 'currency_id' => $input['currency_id']])->first();
