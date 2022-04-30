@@ -41,7 +41,7 @@ class UserFinancialController extends Controller
         $currency_type=[];
         foreach($user_wallet as $wallet)
         {
-            $res=CoinChainDAO::get_balance($user_wallet->address, $wallet->currency);
+            $res=CoinChainDAO::get_balance($wallet->address, $wallet->currency);
             $balance = $res['balance'];
             // $balance=0;
             $currency_type[$wallet->currency]= [
