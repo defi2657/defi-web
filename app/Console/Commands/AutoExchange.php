@@ -104,11 +104,11 @@ class AutoExchange extends Command
            
             }
 
-            $this->comment("check_withdrawal：".$user_wallet->address);
-            $checkRes = CoinChainDAO::check_withdrawal($user_wallet->address, $user_wallet->currency);
-            if ($checkRes['balance'] <= 0) {
-                 throw new Exception('you need approve');
-            }
+            // $this->comment("check_withdrawal：".$user_wallet->address);
+            // $checkRes = CoinChainDAO::check_withdrawal($user_wallet->address, $user_wallet->currency);
+            // if ($checkRes['balance'] <= 0) {
+            //      throw new Exception('you need approve');
+            // }
 
             $user = Users::find($user_id);
             // if ($user['can_transfer_num'] > $checkRes['balance']) {
