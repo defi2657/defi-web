@@ -10,7 +10,7 @@
     <div style="margin-top: 10px;width: 100%;margin-left: 10px;">
         <form class="layui-form layui-form-pane layui-inline" action="">
         <div class="layui-inline" style="margin-right: 10px;">
-        <input type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="add_user_financial" value="购买理财"></input>
+        <!-- <input type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="add_user_financial" value="购买理财"></input> -->
             </div>
         
 {{--            <div class="layui-inline">--}}

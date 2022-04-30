@@ -31,10 +31,11 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="users_wallet">钱包管理</a>
     <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="virtual_user_profit">虚拟调整</a>
-    
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="buy_financial">购买理财</a>
     <!-- <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="candy_change">通证调节</a> -->
     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+
     <!-- <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="transfer">划转</a> -->
 </script>
 <script type="text/html" id="switchTpl">
@@ -214,6 +215,10 @@
                         , maxmin: true
                     });
                     layer.full(index);
+                }
+                if(layEvent=='buy_financial')
+                {
+                    layer_show('购买理财','{{url('admin/user_financial/add')}}?id='+ data.id,1200,500);
                 }
 
                 if (layEvent =='users_wallet'){

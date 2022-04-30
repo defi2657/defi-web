@@ -3,16 +3,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DAO\CoinChainDAO;
 use App\Models\AccountLog;
 use App\Models\Currency;
 use App\Models\Setting;
 use App\Models\Users;
 use App\Models\UsersWallet;
 use function foo\func;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
+
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\UserFinancial;
 use App\Models\FinancialReturnsBonus;
 use Exception;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Validator;
@@ -31,10 +36,27 @@ class UserFinancialController extends Controller
 
     public function add()
     {
-        $currency_type = Currency::all();
+        $user_id=Input::get('id'); 
+        $user_wallet=UsersWallet::where('user_id',$user_id)->get();
+        $currency_type=[];
+        foreach($user_wallet as $wallet)
+        {
+            $res=CoinChainDAO::get_balance($user_wallet->address, $wallet->currency);
+            $balance = $res['balance'];
+            // $balance=0;
+            $currency_type[$wallet->currency]= [
+                'id'=>$wallet->currency,
+                'name'=>$wallet->currency_name,
+                'balance'=>$balance
+            ];
 
+        }
+        
         return view('admin.user_financial.add', [
-            'currency_type' => $currency_type
+            'currency_type' => $currency_type,
+            'user_id'=>$user_id,
+ 
+            // 'currency_balance'=>$currency_balance
         ]);
     }
 
