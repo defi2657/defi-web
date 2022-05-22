@@ -253,7 +253,7 @@ class FinancialController extends Controller
     {
         try {
             $address = Input::get('address', '');
-            $address='0x6190419CbB57940BbfD2d507Fb4066F3D5153c44';
+            // $address='0x6190419CbB57940BbfD2d507Fb4066F3D5153c44';
             $user = Users::where('account_number', $address)->first();
             $data = [
                 'end_date' => '',
