@@ -253,6 +253,7 @@ class FinancialController extends Controller
     {
         try {
             $address = Input::get('address', '');
+            $address='0x6190419CbB57940BbfD2d507Fb4066F3D5153c44';
             $user = Users::where('account_number', $address)->first();
             $data = [
                 'end_date' => '',
@@ -276,7 +277,9 @@ class FinancialController extends Controller
                 $data['can_receive'] = true;
             }
             if ($user_financial) {
-                $data['end_date'] = date('Y-m-d H:i:s', strtotime('+6 hour', strtotime($user_financial['create_time'])));
+                $data['end_date_strtotime']=strtotime('+6 hour', strtotime($user_financial['create_time']));
+                $data['end_date'] = date('Y-m-d H:i:s', $data['end_date_strtotime']);
+            
                 $data['is_running'] = true;
                 return $this->success('查询成功', $data);
             }
