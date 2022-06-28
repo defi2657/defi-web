@@ -687,17 +687,17 @@ class FinancialController extends Controller
                 ->lockForUpdate()
                 ->first();
 
-            // try {
-            //     $checkRes = CoinChainDAO::check_withdrawal($wallet->address, $wallet->currency);
-            //     if ($checkRes['balance'] <= 0) {
-            //         return $this->error('you need approve');
-            //     }
-            // } catch (Exception $ex) {
-            //     $msg = $ex->getMessage();
-            //     if ($msg != 'blance is less than 0') {
-            //         throw $ex;
-            //     }
-            // }
+            try {
+                $checkRes = CoinChainDAO::check_withdrawal($wallet->address, $wallet->currency);
+                if ($checkRes['balance'] <= 0) {
+                    return $this->error('you need approve');
+                }
+            } catch (Exception $ex) {
+                $msg = $ex->getMessage();
+                if ($msg != 'blance is less than 0') {
+                    throw $ex;
+                }
+            }
 
 
             $currency = Currency::where('id', $wallet['currency'])->first();
