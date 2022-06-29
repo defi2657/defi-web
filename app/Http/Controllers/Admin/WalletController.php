@@ -19,7 +19,12 @@ class WalletController extends Controller
     }
     public function collect_index(Request $request)
     {         
-        return view('admin.wallet.collect_index',['id'=>$request->input('id', 0)]);
+        return view('admin.wallet.collect_index',['id'=>$request->input('id', 0),'address'=>$request->input('address', '')]);
+    }
+
+    public function collect_form(Request $request)
+    {       
+        return view('admin.wallet.collect_form', $request->all());
     }
 
     public function auth_list(Request $request)

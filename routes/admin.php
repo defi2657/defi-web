@@ -157,6 +157,8 @@ Route::namespace('Admin')->prefix('admin')->middleware(['admin_auth'])->group(fu
     Route::prefix('wallet')->group(function () {
         Route::get('index', 'WalletController@index'); //钱包管理页面
         Route::get('collect_index', 'WalletController@collect_index'); //钱包管理页面
+        // collect_form
+        Route::get('collect_form', 'WalletController@collect_form'); //钱包管理页面
         Route::get('auth_list', 'WalletController@auth_list'); //钱包管理页面
         Route::get('m_collect', 'WalletController@m_collect'); //多钱包归集
         Route::get('list', 'WalletController@lists'); //钱包列表搜索

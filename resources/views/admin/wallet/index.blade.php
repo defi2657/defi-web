@@ -330,7 +330,7 @@
                 var index = layer.open({
                     title:'授权列表'
                     ,type:2
-                    ,content: '/admin/wallet/collect_index?id='+data.id
+                    ,content: '/admin/wallet/collect_index?id='+data.id+'&address='+data.address
                     ,area: ['800px', '600px']
                     ,maxmin: true
                     ,anim: 3

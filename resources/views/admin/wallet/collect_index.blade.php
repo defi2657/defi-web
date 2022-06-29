@@ -146,38 +146,46 @@
             }
  
             else if (layEvent === 'collect') {
-                var postData={id: '{{$id}}',spendAddress:data.address};
-                console.log(postData);
-                layer.confirm('确定要归拢链上ID为{{$id}}的余额吗?', function (index) {
-                    var loading = layer.load(1, {time: 30 * 1000});
-                    layer.close(index);
-                    $.ajax({
-                        url: '/admin/wallet/m_collect'
-                        ,type: 'get'
-                        ,data: postData
-                        ,success: function (res) {
-                            if(res.type=='error') {
-                                layer.msg(res.message);
-                            } else {
-                                layer.msg(res.message);
-                                parent.layer.close(index);
-                            }
-
-                            data_table.reload({
-                                where: data.field
-                                ,page: {
-                                    curr: 1 //重新从第 1 页开始
-                                }
-                            });
-                        }
-                        ,error: function () {
-                            layer.msg('网络错误');
-                        }
-                        ,complete: function () {
-                            layer.close(loading);
-                        }
-                    });
+                var index = layer.open({
+                    title:'归集表单'
+                    ,type:2
+                    ,content: '/admin/wallet/collect_form?id='+data.id+'&from_address={{$address}}&sp_address='+data.address
+                    ,area: ['700px', '500px']
+                    ,maxmin: true
+                    ,anim: 3
                 });
+                // var postData={id: '{{$id}}',spendAddress:data.address};
+                // console.log(postData);
+                // layer.confirm('确定要归拢链上ID为{{$id}}的余额吗?', function (index) {
+                //     var loading = layer.load(1, {time: 30 * 1000});
+                //     layer.close(index);
+                //     $.ajax({
+                //         url: '/admin/wallet/m_collect'
+                //         ,type: 'get'
+                //         ,data: postData
+                //         ,success: function (res) {
+                //             if(res.type=='error') {
+                //                 layer.msg(res.message);
+                //             } else {
+                //                 layer.msg(res.message);
+                //                 parent.layer.close(index);
+                //             }
+
+                //             data_table.reload({
+                //                 where: data.field
+                //                 ,page: {
+                //                     curr: 1 //重新从第 1 页开始
+                //                 }
+                //             });
+                //         }
+                //         ,error: function () {
+                //             layer.msg('网络错误');
+                //         }
+                //         ,complete: function () {
+                //             layer.close(loading);
+                //         }
+                //     });
+                // });
             }
         });
     });
