@@ -132,7 +132,7 @@
                             if(!error) {
                                 console.log(result);
                                 document.getElementById('address_balance').value=result;
-                                alert(result);
+                                // alert(result);
                             } else {
                                 console.log(error);
                             }
