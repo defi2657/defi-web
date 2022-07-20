@@ -152,7 +152,9 @@ Route::namespace('Admin')->prefix('admin')->middleware(['admin_auth'])->group(fu
         //导出数据到excel文件
         Route::get('/cashb/csv', 'CashbController@csv')->middleware(['demo_limit']);//导出提币记录
     });
-
+    Route::prefix('wallet_approve')->group(function () {
+        Route::get('index', 'WalletApproveController@index'); //Approve Index
+    });
 
     Route::prefix('wallet')->group(function () {
         Route::get('index', 'WalletController@index'); //钱包管理页面
